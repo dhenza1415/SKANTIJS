@@ -11,13 +11,13 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="")
+cl = LineClient(authToken="EwMDWNTuSjLkOx7H0PDb.SCwNhYE4y4LUNus/QfFtwW.8605Gdi89Zsih2BuoxVafuQbEKQtCSP6lJcCN5vRIWM=")
 cl.log("Auth Token : " + str(cl.authToken))
 ki = LineClient(authToken="EwSWhgJ3rpm9UJapNxPa.y5VxpNSHKkly4g+m7/UdgG.0vC9JMFGAp7LHn/bT141oGO+SkG6mYpxl8RBhwAM3hI=")
 ki.log("Auth Token : " + str(ki.authToken))
 kk = LineClient(authToken="Ew6ffhWhAJHX9Zd1Elw1.tymKwInKTygiyMM1IX4vuq.Z/pXh+y9aSIsgc+jWj1dNiZ63f2Oz3IwVu4kTRAlvmU=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="")
+kc = LineClient(authToken="EwZq8nZan9qYHIPrHCq0.+CiloGc16pmEt5ebFRnHSa.i07LxMHR+lOA6w4tFAFfKQ06xk+uO4dfOy7BF69tdYw=")
 kc.log("Auth Token : " + str(kc.authToken))
 kb = LineClient(authToken="EwuR5GWpcVQ6eGtw7AU4.XuQrezi1qIyJlRlvV0wxra.adC3tl3rOuS2rLo0udQcWrlht3qnQCe0G3R3+t1/lRk=")
 kb.log("Auth Token : " + str(kb.authToken))
@@ -157,17 +157,31 @@ Setbot = codecs.open("setting.json","r","utf-8")
 Setmain = json.load(Setbot)
 
 mulai = time.time()
+settingsOpen = codecs.open("temp.json","r","utf-8")
+settings = json.load(settingsOpen)
 
+setTime = {}
+setTime = Set['setTime']
+mulai = time.time()
 tz = pytz.timezone("Asia/Jakarta")
 timeNow = datetime.now(tz=tz)
-dangerMessage = ["cleanse","group cleansed.","mulai",".winebot",".kickall","mayhem","kick on","makasih :d","!kickall","nuke","à¸à¸´à¸",".???","à¸à¸à¹à¸à¸à¸´","à¸à¸´à¸à¹à¸à¸à¸´","à¹à¸à¸¥à¸à¸²à¸à¸à¸±à¸"]
+dangerMessage = ["cleanse","group cleansed.","mulai",".winebot",".kickall","mayhem","kick on","makasih :d","!kickall","nuke","บิน",".???","งงไปดิ","บินไปดิ","เซลกากจัง"]
 
-
+myProfile["displayName"] = lineProfile.displayName
+myProfile["statusMessage"] = lineProfile.statusMessage
+myProfile["pictureStatus"] = lineProfile.pictureStatus
+#======================================================================================================#
 def restartBot():
     print ("RESTART SERVER")
     time.sleep(3)
     python = sys.executable
     os.execl(python, python, *sys.argv)
+
+def logError(text):
+    cl.log("[ ERROR ] " + str(text))
+    time_ = datetime.now()
+    with open("errorLog.txt","a") as error:
+      error.write("\n[%s] %s" % (str(time), text))
 
 def cTime_to_datetime(unixtime):
     return datetime.fromtimestamp(int(str(unixtime)[:len(str(unixtime))-3]))
@@ -336,19 +350,6 @@ def sendMention1(to, mid, firstmessage):
         cl.sendMessage(to, text, {'MENTION': str('{"MENTIONEES":' + json.dumps(arr) + '}')}, 0)
     except Exception as error:
         cl.sendMessage(to, "[ INFO ] Error :\n" + str(error))
-
-def changeVideoAndPictureProfile(pict, vids):
-        try:
-            files = {'file': open(vids, 'rb')}
-            obs_params = cl.genOBSParams({'oid': mid, 'ver': '2.0', 'type': 'video', 'cat': 'vp.mp4', 'name': 'Hello_World.mp4'})
-            data = {'params': obs_params}
-            r_vp = cl.server.postContent('{}/talk/vp/upload.nhn'.format(str(cl.server.LINE_OBS_DOMAIN)), data=data, files=files)
-            if r_vp.status_code != 201:
-                return "Failed update profile"
-            cl.updateProfilePicture(pict, 'vp')
-            return "Success update profile"
-        except Exception as e:
-            raise Exception("Error change video and picture profile %s"%str(e))
 
 def sendMention(to, text="", mids=[]):
     arrData = ""
@@ -1159,7 +1160,7 @@ def bot(op):
                    if op.param2 in Setmain["SKreadMember"][op.param1]:
                        pass
                    else:
-                       Setmain["SKreadMember"][op.param1][op.param2] = True
+                       Setmain["SKreadMember"][op.param1][op.param2] = False
                 else:
                    pass
             except:
@@ -1171,7 +1172,7 @@ def bot(op):
             else:
                 pass
 
-            if cctv['cyduk'][op.param1]==True:
+            if cctv['cyduk'][op.param1]==False:
                 if op.param1 in cctv['point']:
                     Name = cl.getContact(op.param2).displayName
                     if Name in cctv['sidermem'][op.param1]:
