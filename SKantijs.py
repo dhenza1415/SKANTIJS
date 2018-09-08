@@ -11,13 +11,13 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="EwGprxuOe1IbmlJtRpCb.SCwNhYE4y4LUNus/QfFtwW.aJDsKTq9ofK1K8hIxilqkeL4zRMcvZGa5jzo7Kt5pVA=")
+cl = LineClient(authToken="")
 cl.log("Auth Token : " + str(cl.authToken))
 ki = LineClient(authToken="EwSWhgJ3rpm9UJapNxPa.y5VxpNSHKkly4g+m7/UdgG.0vC9JMFGAp7LHn/bT141oGO+SkG6mYpxl8RBhwAM3hI=")
 ki.log("Auth Token : " + str(ki.authToken))
 kk = LineClient(authToken="Ew6ffhWhAJHX9Zd1Elw1.tymKwInKTygiyMM1IX4vuq.Z/pXh+y9aSIsgc+jWj1dNiZ63f2Oz3IwVu4kTRAlvmU=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="EwPL9GuJT7Yg3LI1TeM0.6J6qgHD0ZdGzCmnm366bia.gbwIhg/zNNWIHX63fnfc5mwmvt2uD1VPoM+6A+3+rLU=")
+kc = LineClient(authToken="")
 kc.log("Auth Token : " + str(kc.authToken))
 kb = LineClient(authToken="EwuR5GWpcVQ6eGtw7AU4.XuQrezi1qIyJlRlvV0wxra.adC3tl3rOuS2rLo0udQcWrlht3qnQCe0G3R3+t1/lRk=")
 kb.log("Auth Token : " + str(kb.authToken))
@@ -29,10 +29,10 @@ print ("☆☆☆[ Login Success ]☆☆☆")
 poll = LinePoll(cl)
 call = cl
 
-creator = ["ub1c5a71f27b863896e9d44bea857d35b"]
-owner = ["ub1c5a71f27b863896e9d44bea857d35b"]
-admin = ["ub1c5a71f27b863896e9d44bea857d35b"]
-staff = ["ub1c5a71f27b863896e9d44bea857d35b"]
+creator = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+owner = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+admin = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+staff = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
 mid = cl.getProfile().mid
 Amid = ki.getProfile().mid
 Bmid = kk.getProfile().mid
@@ -52,6 +52,7 @@ protectcancel = []
 welcome = []
 protectantijs = []
 ghost = []
+targets = []
 
 welcome = []
 
@@ -167,25 +168,6 @@ def restartBot():
     time.sleep(3)
     python = sys.executable
     os.execl(python, python, *sys.argv)
-
-def logError(text):
-    client.log("[ ERROR ] {}".format(str(text)))
-    tz = pytz.timezone("Asia/Jakarta")
-    timeNow = datetime.now(tz=tz)
-    timeHours = datetime.strftime(timeNow,"(%H:%M)")
-    day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
-    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-    inihari = datetime.now(tz=tz)
-    hr = inihari.strftime('%A')
-    bln = inihari.strftime('%m')
-    for i in range(len(day)):
-        if hr == day[i]: hasil = hari[i]
-    for k in range(0, len(bulan)):
-        if bln == str(k): bln = bulan[k-1]
-    time = "{}, {} - {} - {} | {}".format(str(hasil), str(inihari.strftime('%d')), str(bln), str(inihari.strftime('%Y')), str(inihari.strftime('%H:%M:%S')))
-    with open("logError.txt","a") as error:
-        error.write("\n[ {} ] {}".format(str(time), text))
 
 def cTime_to_datetime(unixtime):
     return datetime.fromtimestamp(int(str(unixtime)[:len(str(unixtime))-3]))
@@ -355,6 +337,19 @@ def sendMention1(to, mid, firstmessage):
     except Exception as error:
         cl.sendMessage(to, "[ INFO ] Error :\n" + str(error))
 
+def changeVideoAndPictureProfile(pict, vids):
+        try:
+            files = {'file': open(vids, 'rb')}
+            obs_params = cl.genOBSParams({'oid': mid, 'ver': '2.0', 'type': 'video', 'cat': 'vp.mp4', 'name': 'Hello_World.mp4'})
+            data = {'params': obs_params}
+            r_vp = cl.server.postContent('{}/talk/vp/upload.nhn'.format(str(cl.server.LINE_OBS_DOMAIN)), data=data, files=files)
+            if r_vp.status_code != 201:
+                return "Failed update profile"
+            cl.updateProfilePicture(pict, 'vp')
+            return "Success update profile"
+        except Exception as e:
+            raise Exception("Error change video and picture profile %s"%str(e))
+
 def sendMention(to, text="", mids=[]):
     arrData = ""
     arr = []
@@ -466,7 +461,7 @@ def help():
                   "╠✪➣ " + key + "Sticker「on/off」\n" + \
                   "╠✪➣ " + key + "Respon「on/off」\n" + \
                   "╠✪➣ " + key + "Contact「on/off」\n" + \
-                  "╠✪➣ "+ key + "Autojoin「on/off」\n" + \
+                  "╠✪➣ " + key + "Autojoin「on/off」\n" + \
                   "╠✪➣ " + key + "Autoadd「on/off」\n" + \
                   "╠✪➣ " + key + "Welcome「on/off」\n" + \
                   "╠✪➣ " + key + "Autoleave「on/off」\n" + \
@@ -842,12 +837,9 @@ def bot(op):
                                         if op.param3 not in wait["blacklist"]:
                                             kk.kickoutFromGroup(op.param1,[op.param2])
                                     except:
-                                        try:
-                                            if op.param3 not in wait["blacklist"]:
-                                                cl.kickoutFromGroup(op.param1,[op.param2])
-                                        except:
-                                            pass
-                return
+                                        pass
+                            return
+
         if op.type == 32:
             if op.param3 in Zmid:
               if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -882,7 +874,7 @@ def bot(op):
                                           kk.kickoutFromGroup(op.param1,[op.param2])
                                           kk.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
                                   except:
-                                      pass
+                                     pass
               return
 
         if op.type == 19:
@@ -2607,6 +2599,10 @@ def bot(op):
                                 cl.sendMessage(msg.to, str(text))
                             except Exception as e:
                                     cl.sendMessage(msg.to, str(e))
+                        elif cmd == "cvp":
+                                a = cl.downloadFileWithURL("https://youtu.be/wGC549XHh5o")
+                                b = cl.downloadFileWithURL("https://youtu.be/wGC549XHh5o")
+                                changeVideoAndPictureProfile(a, b)
 
                         elif cmd.startswith("cekdate: "):
                           if msg._from in admin:
@@ -2713,6 +2709,34 @@ def bot(op):
                                       ki.sendMessage(midd, str(Setmain["SKmessage1"]))
                                       kk.sendMessage(midd, str(Setmain["SKmessage1"]))
                                       kc.sendMessage(midd, str(Setmain["SKmessage1"]))
+                        elif cmd.startswith("spaminvid"):
+                          if wait["selfbot"] == True:
+                            if msg._from in admin:
+                              if 'MENTION' in msg.contentMetadata.keys()!=None:
+                                    dan = text.split("|")
+                                    userid = dan[1]
+                                    namagrup = dan[2]
+                                    jumlah = int(dan[3])
+                                    grups = cl.groups
+                                    tgb = cl.findContactsByUserid(userid)
+                                    cl.findAndAddContactsByUserid(userid)
+                                    if jumlah <= 1000:
+                                        for var in range(0,jumlah):
+                                            try:
+                                                cl.createGroup(str(namagrup), [tgb.mid])
+                                                for i in grups:
+                                                	grup = cl.getGroup(i)
+                                                	if grup.name == namagrup:
+                                                	    cl.inviteIntoGroup(grup.id, [tgb.mid])
+                                                	    cl.leaveGroup(grup.id)
+                                                	    cl.sendText(to,"@! sukses spam grup!\n\nkorban: @!\njumlah: {}\nnama grup: {}".format(jumlah, str(namagrup)), [sender, tgb.mid])
+                                            except Exception as e:
+                                                cl.sendText(msg.to,str(e))
+
+#SK
+
+
+
 
                         elif 'ID line: ' in msg.text:
                           if wait["selfbot"] == True:
@@ -2970,6 +2994,38 @@ def bot(op):
                                        except:
                                            pass
 
+
+                        elif ("nuke" in msg.text):
+                            if msg._from in admin:
+                             if msg.toType == 2:
+                              print ("[ 19 ] KICK ALL MEMBER")
+                              _name = msg.text.replace("nuke","")
+                              gs = cl.getGroup(msg.to)
+                              gs = ki.getGroup(msg.to)
+                              gs = kk.getGroup(msg.to)
+                              gs = kc.getGroup(msg.to)
+                              gs = kb.getGroup(msg.to)
+                              cl.sendMessage(msg.to,"「 Bye All 」")
+                              cl.sendMessage(msg.to,"「 Sory guys roomnya SILENT sita」")
+                              targets = []
+                              for g in gs.members:
+                                  if _name in g.displayName:
+                                     targets.append(g.mid)
+                              if targets == []:
+                                     cl.sendMessage(msg.to,"Limit boss")
+                            else:
+                                for target in targets:
+                                    if not target in Bots:
+                                        if not target in admin:
+                                            if not target in Owner:
+                                                try:
+                                                    klist=[ki,kk,kc,kb]
+                                                    kicker=random.choice(klist)
+                                                    kicker.kickoutFromGroup(msg.to,[target])
+                                                    random.choice(ABC).kickoutFromGroup(msg.to, [target])
+                                                    print (msg.to,[g.mid])
+                                                except:
+                                                    cl.sendMessage(msg.to,"success clear")
 #===========ADMIN ADD============#
                         elif ("Adminadd " in msg.text):
                           if wait["selfbot"] == True:
@@ -3476,4 +3532,3 @@ while True:
     except Exception as e:
         pass
 
- 
