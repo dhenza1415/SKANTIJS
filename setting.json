@@ -1,24 +1,28 @@
 {
-    "restartPoint": {},
-    "restartBot": {},
-    "userAgent": {},
-    "keyCommand": "",
-    "namecreator": "Aditmadzs",
     "autoAdd": false,
+    "autoAddMessage": "Halo @!, terimakasih telah menambahkan saya sebagai teman :3",
     "autoJoin": false,
-    "autoReject": false,
-    "autoLeave": true,
-    "autoRead": false,
-    "server": {},
-    "changePicture": false,
-    "changeGroupPicture": false,
+    "autoJoinMessage": "Halo @!, makasih sudah invite saya",
     "autoJoinTicket": false,
-    "Img": {},
-    "Images": {},
-    "Addimage": false,
-    "ADITMADZSfoto": {},
-    "ADITMADZSlimit": 1,
-    "ADITMADZSmessage": "ADD ME http://line.me/ti/p/~arif.mh",
-    "ADITMADZSreadMember": {},
-    "ADITMADZSreadPoint": {}
+    "autoRead": false,
+    "autoRespon": false,
+    "autoResponMessage": "Woi @!, gak usah tag tag -_-",
+    "changeGroupPicture": [],
+    "changePictureProfile": false,
+    "checkContact": false,
+    "checkPost": false,
+    "checkSticker": false,
+    "detectUnsend": false,
+    "keyCommand": "",
+    "mimic": {
+        "status": false,
+        "target": {}
+    },
+    "myProfile": {
+        "coverId": "",
+        "displayName": "",
+        "pictureStatus": "",
+        "statusMessage": ""
+    },
+    "setKey": false
 }
