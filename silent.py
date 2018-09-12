@@ -52,8 +52,8 @@ protectcancel = []
 welcome = []
 protectantijs = []
 ghost = []
+ghost2 = []
 targets = []
-
 welcome = []
 
 responsename1 = ki.getProfile().displayName
@@ -419,7 +419,7 @@ def help():
                   "╠✪➣ " + key + "Mybot\n" + \
                   "╠✪➣ " + key + "Status\n" + \
                   "╠✪➣ " + key + "About\n" + \
-                  "╠✪➣ " + key + "Cuby\n" + \
+                  "╠✪➣ " + key + "SK\n" + \
                   "╠✪➣ " + key + "Restart\n" + \
                   "╠✪➣ " + key + "Runtime\n" + \
                   "╠✪➣ " + key + "Creator\n" + \
@@ -473,10 +473,11 @@ def help():
                   "╠✪➣ " + key + "Protectkick「on/off」\n" + \
                   "╠✪➣ " + key + "Protectinvite「on/off」\n" + \
                   "╠✪➣ " + key + "Protectcancel「on/off」\n" + \
-                  "╠✪➣ " + key + "Antijs「on」\n" + \
-                  "╠✪➣ " + key + "Antijs stay\n" + \
+                  "╠✪➣ " + key + "Js「on」\n" + \
+                  "╠✪➣ " + key + "Js stay\n" + \
                   "╠✪➣ " + key + "Protectantijs「on/off」\n" + \
-                  "╠✪➣ " + key + "Ghost bye\n" + \
+                  "╠✪➣ " + key + "Ghost in\n" + \
+                  "╠✪➣ " + key + "Ghost lv\n" + \
                   "╠✪➣ " + key + "Ghost「on/off」\n" + \
                   "\n  🛡─《Silent Settings》─🛡\n│Not Using key「 " + key + " \n" + \
                   "╠✪➣ " + key + "Sticker「on/off」\n" + \
@@ -873,6 +874,23 @@ def bot(op):
                         cl.updateGroup(X)
             except:
                 pass
+        if op.type == 19:
+           try:
+               if op.param1 in ghost:
+                   if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
+                        G = cl.getGroup(op.param1)
+                        G.preventedJoinByTicket = False
+                        cl.updateGroup(G)
+                        invsend = 0
+                        Ticket = cl.reissueGroupTicket(op.param1)
+                        sb.acceptGroupInvitationByTicket(op.param1,Tickrt)
+                        sb.kickoutFromGroup(op.param1,[op.param2])
+                        sb.leaveGroup(op.param1)
+                        X = cl.getGroup(op.param1)
+                        X.preventedJoinByTicket = True
+                        cl.updateGroup(X)
+           except:
+                 pass
 
         if op.type == 19:
             try:
@@ -1711,7 +1729,7 @@ def bot(op):
                         elif cmd == "gas":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
-                               cl.sendMessage(msg.to, "ASSALAMUALAIKUM \nHALLOOO!!! SORRY ROOM KALIAN \n \nKEBANYAKAN ANU\nSILENT DATANG\nMAU SAPU ROOM GJ\nNO COMEND \nNO BAPER \nNO BACOT \nNO DESAH \nNO SPONSOR \nNO HATTERS\nROOM OKEP \nROOM JUDI\nROOM GAJELAS\SIAP KAMI BANTAII \n\n\n\n FUCK YOU...\nKENAPE LU PADA DIEM\nTANGKIS SU JANGAN CUMA NYIMAK\n\n\nDASAR ROOM PEA KAGAK JELAS\nSORRY BOS!!!\nGC LU MAU GUA SITA...!!!\n\n\n SALAM DARI KAMI S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜\n\nHADIR DI ROOM ANDA\n\nRATA GAK RATA YANG PENTING KIBAR \nRATA KAMI SENANG\nGAKRATA TUNGGU KEDATANGAN KAMI LAGI\n\n\n  <<<SLAM CIAK S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜>>> \n\n\n>>>>>>GO!!! <<<<<<\n\n\nDENDAM CARI KAMI\n\n<<<<<<<<<<S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜>>>>>>>>>>\n\nhttp://line.me/ti/p/~teambotprotect\nhttp://line.me/ti/p/~dhenz415")
+                               cl.sendMessage(msg.to, "ASSALAMUALAIKUM \nHALLOOO!!! SORRY ROOM KALIAN \n \nKEBANYAKAN ANU\nSILENT DATANG\nMAU SAPU ROOM GJ\nNO COMEND \nNO BAPER \nNO BACOT \nNO DESAH \nNO SPONSOR \nNO HATTERS\nROOM OKEP \nROOM JUDI\nROOM GAJELAS\SIAP KAMI BANTAII \n\n\n\n FUCK YOU...\nKENAPE LU PADA DIEM\nTANGKIS SU JANGAN CUMA NYIMAK\n\n\nDASAR ROOM PEA KAGAK JELAS\nSORRY BOS!!!\nGC LU MAU GUA SITA...!!!\n\n\n SALAM DARI KAMI S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜\n\nHADIR DI ROOM ANDA\n\nRATA GAK RATA YANG PENTING KIBAR \nRATA KAMI SENANG\nGAKRATA TUNGGU KEDATANGAN KAMI LAGI\n\n\n  <<<SLAM CIAK S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜>>> \n\n\n>>>>>>GO!!! <<<<<<\n\n\nCREATOR\n\n<<<<<<<<<<S̴̬̦̈͛̈́̇̈́̈́͂͒I̴̡͈͓̖͉̟̲͚̮͚̾͌̂̅̈́̍̀͗̕͝L̴̯̝̣̉͜ͅḚ̵̻͆N̷̡̛͎̗̮̤̩̟̮̏̄́̔̄̀T̵̪̭͇̘̳̚ ̸̲̪̱͒́̂̀ͅK̶̨̟̥͊͑̍̆͌̎Ḯ̸̧̺͖͔̹̞̿͗̚Ļ̶̧̨̫̤͈̖͆͆̈̕̚L̵̖̤͈̜̳̉̽͋͛̈́E̸̡̖̠̦͛͜R̵͖̬̯̞̝̪̳̙̙̋͑̒͊̎̕̚͜>>>>>>>>>>\n\nhttp://line.me/ti/p/~pxj5094s\nhttp://line.me/ti/p/~dhenz415")
                                cl.sendContact(to, mid)
                                cl.sendContact(to, Amid)
                                cl.sendContact(to, Bmid)
@@ -2099,7 +2117,7 @@ def bot(op):
                         elif cmd.startswith("Sk3cname: "):
                           if msg._from in admin:
                             separate = msg.text.split(" ")
-                            string = msg.text.replace(separate[0] + " ","")
+                            string = msg.text.replace(separate[0] + " ", "")
                             if len(string) <= 10000000000:
                                 profile = kc.getProfile()
                                 profile.displayName = string
@@ -2303,16 +2321,16 @@ def bot(op):
                                     c = c + 1
                                     end = '\n'
                                     mc += str(c) + ". " +cl.getGroup(group).name + "\n"
-                                cl.sendMessage(msg.to,"✒ ReyPro Protection\n\n✒ PROTECT URL :\n"+ma+"\n✒ PROTECT KICK :\n"+mb+"\n✒ PROTECT JOIN :\n"+md+"\n✒ PROTECT CANCEL:\n"+mc+"\nTotal「%s」Grup yg dijaga" %(str(len(protectqr)+len(protectkick)+len(protectjoin)+len(protectcancel))))
+                                cl.sendMessage(msg.to,"✒ Silent Protection\n\n✒ PROTECT URL :\n"+ma+"\n✒ PROTECT KICK :\n"+mb+"\n✒ PROTECT JOIN :\n"+md+"\n✒ PROTECT CANCEL:\n"+mc+"\nTotal「%s」Grup yg dijaga" %(str(len(protectqr)+len(protectkick)+len(protectjoin)+len(protectcancel))))
 
-                        elif cmd == "cuby":
+                        elif cmd == "SK":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
                                 ki.sendMessage(msg.to,responsename1)
                                 kk.sendMessage(msg.to,responsename2)
                                 kc.sendMessage(msg.to,responsename3)
 
-                        elif cmd == "antijs on":
+                        elif cmd == "js on":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
                                 try:
@@ -2326,7 +2344,7 @@ def bot(op):
                                 except:
                                     pass
                                     
-                        elif cmd == "antijs stay":
+                        elif cmd == "js stay":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
                                 try:
@@ -2426,7 +2444,7 @@ def bot(op):
                                 G.preventedJoinByTicket = True
                                 kc.updateGroup(G)
 
-                        elif cmd == "ghost join":
+                        elif cmd == "ghost in":
                             if msg._from in admin:
                                 G = cl.getGroup(msg.to)
                                 ginfo = cl.getGroup(msg.to)
@@ -2435,15 +2453,16 @@ def bot(op):
                                 invsend = 0
                                 Ticket = cl.reissueGroupTicket(msg.to)
                                 sw.acceptGroupInvitationByTicket(msg.to,Ticket)
+                                sb.acceptGroupInvitationByTicket(msg.to,Ticket)
                                 G = sw.getGroup(msg.to)
                                 G.preventedJoinByTicket = True
                                 sw.updateGroup(G)
 
-                        elif cmd == "ghost bye":
+                        elif cmd == "ghost lv":
                             if msg._from in admin:
                                 G = cl.getGroup(msg.to)
                                 sw.leaveGroup(msg.to)
-
+                                sb.leaveGroup(msg.to)
                         elif cmd == "sptime":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
