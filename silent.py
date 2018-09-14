@@ -39,6 +39,7 @@ Bmid = kk.getProfile().mid
 Cmid = kc.getProfile().mid
 Dmid = kb.getProfile().mid
 Zmid = sw.getProfile().mid
+
 KAC = [ki,kk,kc]
 ABC = [cl,ki,kk,kc]
 Bots = [mid,Amid,Bmid,Cmid,Dmid,Zmid]
@@ -647,17 +648,17 @@ def bot(op):
                         kc.acceptGroupInvitation(op.param1)
                         ginfo = kc.getGroup(op.param1)
                         kc.sendMessage(op.param1,"Kuii " + str(ginfo.name))
-#            if Dmid in op.param3:
-#                if wait["autoJoin"] == True:
-#                    if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
-#                        kb.acceptGroupInvitation(op.param1)
-#                        ginfo = kc.getGroup(op.param1)
-#                        kb.sendMessage(op.param1,"Selamat Tinggal\n Group " +str(ginfo.name))
-#                        kb.leaveGroup(op.param1)
-#                    else:
-#                        kb.acceptGroupInvitation(op.param1)
-#                        ginfo = kc.getGroup(op.param1)
-#                        kb.sendMessage(op.param1,"Kuii " + str(ginfo.name))
+            if Dmid in op.param3:
+                if wait["autoJoin"] == False:
+                    if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
+                        kb.acceptGroupInvitation(op.param1)
+                        ginfo = kc.getGroup(op.param1)
+                        kb.sendMessage(op.param1,"Selamat Tinggal\n Group " +str(ginfo.name))
+                        kb.leaveGroup(op.param1)
+                    else:
+                        kb.acceptGroupInvitation(op.param1)
+                        ginfo = kc.getGroup(op.param1)
+                        kb.sendMessage(op.param1,"Kuii " + str(ginfo.name))
 
         if op.type == 13:
             if op.param1 in protectinvite:
@@ -1323,8 +1324,12 @@ def bot(op):
                                 kk.findAndAddContactsByMid(op.param1,admin)
                                 kk.inviteIntoGroup(op.param1,admin)
                             except:
-                                pass
-
+                                try:
+                                    kc.kickoutFromGroup(op.param1,[op.param2])
+                                    kc.findAndAddContactsByMid(op.param1,admin)
+                                    kc.inviteIntoGroup(op.param1,admin)
+                                except:
+                                    pass
                 return
 
             if staff in op.param3:
@@ -1799,7 +1804,7 @@ def bot(op):
                                cl.sendContact(to, Dmid)
                                cl.sendContact(to, Zmid)
                                cl.sendMessage(to, None, contentMetadata={"STKID":"406","STKPKGID":"1","STKVER":"100"}, contentType=7)
-                        elif text.lower() == "hapus chat":
+                        elif text.lower() == "delete chat":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
                                try:
@@ -2377,7 +2382,6 @@ def bot(op):
                                     ki.acceptGroupInvitation(msg.to)
                                     kk.acceptGroupInvitation(msg.to)
                                     kc.acceptGroupInvitation(msg.to)
-                                    kb.acceptGroupInvitation(msg.to)
                                     cl.sendMessage(msg.to,"Grup ã"+str(ginfo.name)+"ã pasukan sdah di luar om")
                                 except:
                                     pass
@@ -2404,7 +2408,6 @@ def bot(op):
                                 ki.acceptGroupInvitationByTicket(msg.to,Ticket)
                                 kk.acceptGroupInvitationByTicket(msg.to,Ticket)
                                 kc.acceptGroupInvitationByTicket(msg.to,Ticket)
-                                kb.acceptGroupInvitationByTicket(msg.to,Ticket)
                                 G = cl.getGroup(msg.to)
                                 G.preventedJoinByTicket = True
                                 cl.updateGroup(G)
@@ -2419,9 +2422,7 @@ def bot(op):
                                 kk.leaveGroup(msg.to)
                                 kc.sendMessage(msg.to, "Bye bye "+str(G.name))
                                 kc.leaveGroup(msg.to)
-                                kb.sendMessage(msg.to, "Bye bye "+str(G.name))
-                                kb.leaveGroup(msg.to)
-                                
+
                         elif cmd == "byme":
                           if wait["selfbot"] == True:
                             if msg._from in admin:
