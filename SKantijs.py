@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="Ew6NRYiaEOddXrGxk7Kf.RcO+gtSFS9mgSS+yYZoNVW.M3VI3zdR4unIro0KXoWYN23cBJB1CHFEvapk4rnXHmA=")
+cl = LineClient(authToken="")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="EwG7Rgt9rqIqipor8qQa.y5VxpNSHKkly4g+m7/UdgG.Hdb+fTVyqHkJnche6Zge5vk41/vP4SxR1nwIEsuAY1Y=")
+ki = LineClient(authToken="")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ews2w2fUWwXKBISsIlH1.tymKwInKTygiyMM1IX4vuq.WLmjhWKEUom3xq/7q4h3hn4JePTs+BPgtxpj/+05u3Q=")
+kk = LineClient(authToken="")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="EwwhHJTIcbQrjejcAXz4.XuQrezi1qIyJlRlvV0wxra.P9gIu5RLbVHCQeo8q/mSHfVN/0NiSSWm2yNUucDkAMg=")
+kc = LineClient(authToken="")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="EwQh8pqs1xJH9fAuGrM2.UgaA6PtgDwrhl20KYKxh8G.0tVsDTzOaZv6tm1Jp7D3tj3AjNudqQUwjeyc0MgOuzE=")
+kb = LineClient(authToken="")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="EwIiWXKvljQ5BBJKD9id.jB/U5D2EIoY5xGkQ7FOTtq.S/7YpfkArxR9Ra1mGbc2Zy1+pn2kz9ghrIgYAXQsu1A=")
+sw = LineClient(authToken="")
 sw.log("Auth Token : " + str(sw.authToken))
 
 print ("☆☆☆[ Login Success ]☆☆☆")
@@ -532,7 +532,7 @@ def helpbot():
                    "╠✪➣ "  + key + "Cek welcome\n" + \
                    "╠✪➣ "  + key + "Set sider:「Text」\n" + \
                    "╠✪➣ "  + key + "Set spam:「Text」\n" + \
-                   ''╠✪➣ "  + key + "Set pesan:「Text」\n" + \
+                   "╠✪➣ "  + key + "Set pesan:「Text」\n" + \
                    "╠✪➣ "  + key + "Set respon:「Text」\n" + \
                    "╠✪➣ "  + key + "Set welcome:「Text」\n" + \
                    "╠✪➣ "  + key + "Myname:「Nama」\n" + \
