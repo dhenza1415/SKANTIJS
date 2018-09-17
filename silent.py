@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="EwTrYbx1emqyrFAKYyOd.jB/U5D2EIoY5xGkQ7FOTtq.FAbOJx1BHqs4ByAbxQe4nVSaDDunjm9eR+tubRIDvF8=")
+cl = LineClient(authToken="Ex8JgnT7BFw69lPh0sHd.jB/U5D2EIoY5xGkQ7FOTtq.TTHPwosalGh40ZZj1IDLp49gZ5F/oIR6bYupjZLKje8=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="EwGJC1T0Y5XPRv88JgIf.RcO+gtSFS9mgSS+yYZoNVW.+eUYHviWaoP81LedQRYlW8JsgEePVIeXGtj1/4SGeHE=")
+ki = LineClient(authToken="ExYvGOU2JuXPD1d9hs14.XuQrezi1qIyJlRlvV0wxra.Sh5PbGt+RnpfYqTOFW74bXw1sQB+cl8TPU2GusQC9ws=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ew1XmtgueGqneQCPguva.y5VxpNSHKkly4g+m7/UdgG.QVmJENAxE7ZWyU2H4lkw/w0HT3oeIQew4M/xUUtM0qE=")
+kk = LineClient(authToken="Ex8Xxp89N3Itfd2V3342.UgaA6PtgDwrhl20KYKxh8G.Xp7YU2CZaxKoeJUZl3VBLuAVRYhMAFUr9f7DfCJFshU=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="EwTevofiuDsXUuYUbPC1.tymKwInKTygiyMM1IX4vuq.GTJzUJnAzE79rlL1XseMhvA1bhzduL88F3/OcntVrAE=")
+kc = LineClient(authToken="ExuIyz3TA4fcL980Wce7.lgJet9QL283RPOtfD1eg1W.ZiFiXCvgHyR9+hs4RwpeZobBI77BsrBp4eSuWnnIjSo=/")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="EwR2WM8zlw1pNKSXsLf4.XuQrezi1qIyJlRlvV0wxra.XqsAnxBwTJ3z99fJqFc1/q2r5U1xlumrc97ZK9XqMJM=")
+kb = LineClient(authToken="ExCmCBZunKExqhafw1U3.nsM86g66WhxwizzU8wsg8W.43nMc0RjedUkORc0CDLe/2hJxKG2TEr2UHLXFzHFO+I=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="Ew8mMNHkDY0IRcIQf4R0.+CiloGc16pmEt5ebFRnHSa.7iWnglnrzKsy4QT1n8PgXkUk0plPTIBOPballAW0js8=")
+sw = LineClient(authToken="Exav3HtAJNi7i2Ul3sb6.z1isnjxuFVqKLrc5MOVULG.CDf2WBfaHOzZAuxnncsBVwDyMtE3xOGPCvW4lZDiDEQ=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 print ("====[ Login Success ]====")
@@ -708,7 +708,7 @@ def bot(op):
                 else:
                     wait["blacklist"][op.param2] = True
                     try:
-                        cl.cancelGroupInvitation(op.param1,[op.param2])
+                        kb.cancelGroupInvitation(op.param1,[op.param2])
                     except:
                         try:
                             ki.cancelGroupInvitation(op.param1,[op.param2])
@@ -720,7 +720,7 @@ def bot(op):
                                     kc.cancelGroupInvitation(op.param1,[op.param2])
                                 except:
                                     try:
-                                        kb.cancelGroupInvitation(op.param1,[op.param2])
+                                        cl.cancelGroupInvitation(op.param1,[op.param2])
                                     except:
                                         pass
                 return
@@ -738,7 +738,7 @@ def bot(op):
                 else:
                     wait["blacklist"][op.param2] = True
                     try:
-                        cl.kickoutFromGroup(op.param1,[op.param2])
+                        kb.kickoutFromGroup(op.param1,[op.param2])
                     except:
                         try:
                             ki.kickoutFromGroup(op.param1,[op.param2])
@@ -750,7 +750,7 @@ def bot(op):
                                     kc.kickoutFromGroup(op.param1,[op.param2])
                                 except:
                                     try:
-                                        kb.kickoutFromGroup(op.param1,[op.param2])
+                                        cl.kickoutFromGroup(op.param1,[op.param2])
                                     except:
                                         pass
                 return
@@ -807,7 +807,7 @@ def bot(op):
                 else:
                     wait["blacklist"][op.param2] = True
                     try:
-                        cl.kickoutFromGroup(op.param1,[op.param2])
+                        kb.kickoutFromGroup(op.param1,[op.param2])
                     except:
                         try:
                             ki.kickoutFromGroup(op.param1,[op.param2])
@@ -819,7 +819,7 @@ def bot(op):
                                     kc.kickoutFromGroup(op.param1,[op.param2])
                                 except:
                                     try:
-                                        kb.kickoutFromGroup(op.param1,[op.param2])
+                                        cl.kickoutFromGroup(op.param1,[op.param2])
                                     except:
                                         pass
                 return
@@ -1116,8 +1116,6 @@ def bot(op):
                                     Ticket = ki.reissueGroupTicket(op.param1)
                                     cl.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     ki.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kk.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kc.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     G = ki.getGroup(op.param1)
                                     G.preventedJoinByTicket = True
                                     ki.updateGroup(G)
@@ -1170,8 +1168,6 @@ def bot(op):
                                     Ticket = kk.reissueGroupTicket(op.param1)
                                     cl.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     ki.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kk.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kc.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     G = kk.getGroup(op.param1)
                                     G.preventedJoinByTicket = True
                                     kk.updateGroup(G)
@@ -1224,8 +1220,6 @@ def bot(op):
                                     Ticket = kc.reissueGroupTicket(op.param1)
                                     cl.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     ki.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kk.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kc.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     G = kc.getGroup(op.param1)
                                     G.preventedJoinByTicket = True
                                     kc.updateGroup(G)
@@ -1278,8 +1272,6 @@ def bot(op):
                                     Ticket = cl.reissueGroupTicket(op.param1)
                                     cl.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     ki.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kk.acceptGroupInvitationByTicket(op.param1,Ticket)
-                                    kc.acceptGroupInvitationByTicket(op.param1,Ticket)
                                     G = cl.getGroup(op.param1)
                                     G.preventedJoinByTicket = True
                                     cl.updateGroup(G)
@@ -1386,7 +1378,7 @@ def bot(op):
                 else:
                     wait["blacklist"][op.param2] = True
                     try:
-                        cl.kickoutFromGroup(op.param1,[op.param2])
+                        kb.kickoutFromGroup(op.param1,[op.param2])
                     except:
                         try:
                             ki.kickoutFromGroup(op.param1,[op.param2])
@@ -1398,7 +1390,7 @@ def bot(op):
                                     kc.kickoutFromGroup(op.param1,[op.param2])
                                 except:
                                     try:
-                                        kb.kickoutFromGroup(op.param1,[op.param2])
+                                        cl.kickoutFromGroup(op.param1,[op.param2])
                                     except:
                                         pass
                 return
