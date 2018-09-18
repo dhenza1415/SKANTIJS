@@ -11,9 +11,9 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExrrUSfyxRvyYjcBYHsb.SCwNhYE4y4LUNus/QfFtwW.YT2n3iSvOkYmmV99PNKnpIQIi6uWBpeuOHWROJbyLKk=")
+cl = LineClient(authToken="ExRl4m4WGW1xbj12hT5b.SCwNhYE4y4LUNus/QfFtwW.rA4h9CTREToJsfdbeEAbirT88JGabSjAnatJAAkZNZc=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExSEQzAqDOd1AZkCZX64.XuQrezi1qIyJlRlvV0wxra.28C+hlikoTtML7w1zcXhAySe+x9FWcVAmjGrQzGLf4Q=")
+ki = LineClient(authToken="ExQhEffNq5oR8i0cl91e.oyklsKbLdlIew2eIeRuSFG.dl3rRHAqAUXyf4fyorDduG7ex9zi64HhB5uXooL2vC4=")
 ki.log("Auth Token : " + str(ki.authToken))
 kk = LineClient(authToken="Exn2bgumfe0jPe9NggX2.UgaA6PtgDwrhl20KYKxh8G.COwVccmpLO1EORBvQXCi+ZeOX5V5DMobiQQFae5Aan4=")
 kk.log("Auth Token : " + str(kk.authToken))
