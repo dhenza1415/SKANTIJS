@@ -11,24 +11,22 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExTiRH44fMno4oVY0knb.SCwNhYE4y4LUNus/QfFtwW.5IY3XekGiZGFHEEXIBEmGnzwEyv07DdDXnfK73qyjuk=")
+cl = LineClient(authToken="ExliOElisulK9qJwd8hb.SCwNhYE4y4LUNus/QfFtwW.bL70skW2yK2c3oguCX6DFDKsKPAt4UicsKA5dRS+9Kc=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExKQ3k9C9qLlaVgiT6y4.XuQrezi1qIyJlRlvV0wxra.GM7ZzRzx1yV4Exar6Aw/xVgJXH5YYzuJ0hCmlxsub9I=")
+ki = LineClient(authToken="ExR5BmQFUyNVu7VNCLz4.XuQrezi1qIyJlRlvV0wxra.oaS8srK+wOsmUnnFJCXgvlGPPM+2A+z79aJLQPR+nn0=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Exn2bgumfe0jPe9NggX2.UgaA6PtgDwrhl20KYKxh8G.COwVccmpLO1EORBvQXCi+ZeOX5V5DMobiQQFae5Aan4=")
+kk = LineClient(authToken="Ex34kVHHGYIWWwBDXMS2.UgaA6PtgDwrhl20KYKxh8G.vZIc1K/N50dOnwmRTrNJODi8sMBKNxnv9EyEfVYDUeM=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExSgbXkz9fAHqWth55P7.lgJet9QL283RPOtfD1eg1W.9x1dRBnQd1n84oIbQyVjFW+GlYpA/kX7lYuqcJEb7uY=")
+kc = LineClient(authToken="ExYqeOarj0yVcpYO26w7.lgJet9QL283RPOtfD1eg1W.D6Pr48BxoBZ2+j+w/IF03Vs+3t2MBp7GM+mEzh/eSnc=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="Exz1aA0Al1r935EnPNV3.nsM86g66WhxwizzU8wsg8W.YRML+7t9BCDOPOYYj2r98YtkUpqf5HhestpYQ435j20=")
+kb = LineClient(authToken="ExyvHPogjTjXOZ3dDxk3.nsM86g66WhxwizzU8wsg8W.yKIiDh5BJcUCQK3Nt7lhR5r1sX6J+6QUi81/oWQ8MSE=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExUhltc2xFvqKZo35hxd.jB/U5D2EIoY5xGkQ7FOTtq.ri4dnjgHljeIn9ktiN5KFGIAR5usZ9EMz1/TIAIT9Vg=")
+sw = LineClient(authToken="ExlMt8hxj3ShHWeqAgE6.z1isnjxuFVqKLrc5MOVULG.GCfWrAXqEIUlPrsHimqV9zjf9r1yNayUbdZ83D0Sd/g=")
 sw.log("Auth Token : " + str(sw.authToken))
 
-print ("====[ Login Success ]====")
-
+#===============================================================================================
 poll = LinePoll(cl)
 call = cl
-
 creator = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
 owner = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
 admin = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
@@ -55,6 +53,8 @@ welcome = []
 protectantijs = []
 ghost = []
 targets = []
+msg_dict = {}
+msg_dict1 = {}
 
 welcome = []
 
@@ -124,6 +124,23 @@ wait = {
     "selfbot":True,
     "Protectantijs":False,
     "Ghost":False,
+    "Addsticker":{
+            "name": "",
+            "status":False
+            },
+    "stk":{},
+    "selfbot":True,
+    "Images":{},
+    "Img":{},
+    "Addimage":{
+            "name": "",
+            "status":False
+            },
+    "Videos":{},
+    "Addaudio":{
+            "name": "",
+            "status":False
+            },
     "Addvideo":{
             "name": "",
             "status":False
@@ -1831,6 +1848,7 @@ def bot(op):
                  if wait["sticker"] == True:
                     msg.contentType = 0
                     cl.sendMessage(msg.to,"「Cek ID Sticker」\n✒ STKID : " + msg.contentMetadata["STKID"] + "\n✒ STKPKGID : " + msg.contentMetadata["STKPKGID"] + "\n✒ STKVER : " + msg.contentMetadata["STKVER"]+ "\n\n「Link Sticker」" + "\nline://shop/detail/" + msg.contentMetadata["STKPKGID"])
+
                if msg.contentType == 13:
                  if wait["contact"] == True:
                     msg.contentType = 0
@@ -2115,6 +2133,36 @@ def bot(op):
                             if msg._from in admin:
                                sendMention1(msg.to, sender, "「 Type Selfbot 」\n")
                                cl.sendMessage(msg.to, None, contentMetadata={'mid': mid}, contentType=13)
+
+                        elif ("Sticker: " in msg.text):
+                          if wait["selfbot"] == True:
+                            if msg._from in admin:
+                                try:
+                                    query = msg.text.replace("Sticker: ", "")
+                                    query = int(query)
+                                    if type(query) == int:
+                                        cl.sendImageWithURL(receiver, 'https://stickershop.line-scdn.net/stickershop/v1/product/'+str(query)+'/ANDROID/main.png')
+                                        cl.sendText(receiver, 'https://line.me/S/sticker/'+str(query))
+                                    else:
+                                        cl.sendText(receiver, 'gunakan key sticker angka bukan huruf')
+                                except Exception as e:
+                                    cl.sendText(receiver, str(e))
+
+                        elif ("Steal " in msg.text):
+                          if wait["selfbot"] == True:
+                            if msg._from in admin:
+                               key = eval(msg.contentMetadata["MENTION"])
+                               key1 = key["MENTIONEES"][0]["M"]
+                               mi = cl.getContact(key1)
+                               a = channel.getProfileCoverURL(mid=key1)
+                               cl.sendMessage(msg.to, "「 Contact Info 」\n• Nama : "+str(mi.displayName)+"\n• Mid : " +key1+"\n• Status Msg"+str(mi.statusMessage))
+                               cl.sendMessage(msg.to, None, contentMetadata={'mid': key1}, contentType=13)
+                               if "videoProfile='{" in str(cl.getContact(key1)):
+                                   cl.sendVideoWithURL(msg.to, 'http://dl.profile.line.naver.jp'+str(mi.picturePath)+'/vp.small')
+                                   cl.sendImageWithURL(receiver, a)
+                               else:
+                                   cl.sendImageWithURL(msg.to, 'http://dl.profile.line.naver.jp'+str(mi.picturePath))
+                                   cl.sendImageWithURL(receiver, a)
 
                         elif cmd == "me" or text.lower() == 'aku':
                           if wait["selfbot"] == True:
