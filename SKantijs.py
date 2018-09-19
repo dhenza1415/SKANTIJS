@@ -11,9 +11,9 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExRl4m4WGW1xbj12hT5b.SCwNhYE4y4LUNus/QfFtwW.rA4h9CTREToJsfdbeEAbirT88JGabSjAnatJAAkZNZc=")
+cl = LineClient(authToken="")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExQhEffNq5oR8i0cl91e.oyklsKbLdlIew2eIeRuSFG.dl3rRHAqAUXyf4fyorDduG7ex9zi64HhB5uXooL2vC4=")
+ki = LineClient(authToken="")
 ki.log("Auth Token : " + str(ki.authToken))
 kk = LineClient(authToken="Exn2bgumfe0jPe9NggX2.UgaA6PtgDwrhl20KYKxh8G.COwVccmpLO1EORBvQXCi+ZeOX5V5DMobiQQFae5Aan4=")
 kk.log("Auth Token : " + str(kk.authToken))
@@ -721,7 +721,7 @@ def bot(op):
                                             kc.cancelGroupInvitation(op.param1,[_mid])
                                     except:
                                         pass
-         if op.type == 17:
+        if op.type == 17:
             if op.param2 in wait["blacklist"]:
                 random.choice(ABC).kickoutFromGroup(op.param1,[op.param2])
             else:
@@ -963,25 +963,25 @@ def bot(op):
                           ki.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
                   except:
                       try:
-                          if op.param3 not in wait["blacklist"]
+                          if op.param3 not in wait["blacklist"]:
                               kk.kickoutFromGroup(op.param1,[op.param2])
                               kk.inviteIntoGroup(op.param1,[Zmid])
                               kk.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
                       except:
                           try:
-                              if op.param3 not in wait["blacklist"]
+                              if op.param3 not in wait["blacklist"]:
                                   kc.kickoutFromGroup(op.param1,[op.param2])
                                   kc.inviteIntoGroup(op.param1,[Zmid])
                                   kc.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
                           except:
                               try:
-                                  if op.param3 not in wait["blacklist"]
+                                  if op.param3 not in wait["blacklist"]:
                                       ki.kickoutFromGroup(op.param1,[op.param2])
                                       ki.inviteIntoGroup(op.param1,[Zmid])
                                       ki.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
                               except:
                                   try:
-                                      if op.param3 not in wait["blacklist"]
+                                      if op.param3 not in wait["blacklist"]:
                                           kk.kickoutFromGroup(op.param1,[op.param2])
                                           kk.inviteIntoGroup(op.param1,[Zmid])
                                           kk.sendMessage(op.param1, "Jir songong itu antijs di cancle kapok w cipok")
@@ -1730,36 +1730,38 @@ def bot(op):
                                    cl.sendMessage(msg.to,"Chat dibersihkan...")
                                except:
                                    pass
-                       elif text.lower() == "hapuschat":
-                         if msg._from in admin:
-                            try:
-                                ki.removeAllMessages(op.param2)
-                                kk.removeAllMessages(op.param2)
-                                kc.removeAllMessages(op.param2)
-                                ke.removeAllMessages(op.param2)  
-                                line.removeAllMessages(op.param2)
-                                line.sendMessage(msg.to,"Bersih bos")
-                            except:
-                                pass
-                                print ("clear")
-                     elif text.lower() == "Respon":
-                        if msg._from in admin:
-                            ki.sendText(msg.to,"kuy")
-                            kk.sendText(msg.to,"bos")
-                            kc.sendText(msg.to,"hajar")
-                            kb.sendText(msg.to,"byar")
-                            cl.sendText(msg.to,"gak panik")    
-                            random.choice(ABC).sendText(msg.to,"Semua Udah Hadir..\nSiap Nikung di Group\nBoss")
-                            
-                   elif text.lower() == 'reject':
-                     if msg._from in admin:
-                         gid = line.getGroupIdsInvited()
-                         for i in gid:
-                         cl.rejectGroupInvitation(i)
-                    if settings["lang"] == "JP":
-                         cl.sendText(msg.to,"sᴇᴍᴜᴀ ɢʀᴜᴘ sᴜᴅᴀʜ ᴅɪʙᴀᴛᴀʟᴋᴀɴ")
-                    else:
-                         cl.sendText(msg.to,"sᴇᴍᴜᴀ ɢʀᴜᴘ sᴜᴅᴀʜ ᴅɪʙᴀᴛᴀʟᴋᴀɴ")
+                        elif text.lower() == "hapuschat":
+                           if msg._from in admin:
+                              try:
+                                   ki.removeAllMessages(op.param2)
+                                   kk.removeAllMessages(op.param2)
+                                   kc.removeAllMessages(op.param2)
+                                   kb.removeAllMessages(op.param2)
+                                   cl.removeAllMessages(op.param2)
+                                   cl.sendMessage(msg.to,"Bersih bos")
+                              except:
+                                   pass
+                                   print ("clear")
+
+                        elif text.lower() == "Respon":
+                           if msg._from in admin:
+                                   ki.sendText(msg.to,"kuy")
+                                   kk.sendText(msg.to,"bos")
+                                   kc.sendText(msg.to,"hajar")
+                                   kb.sendText(msg.to,"byar")
+                                   cl.sendText(msg.to,"gak panik")    
+                                   random.choice(ABC).sendText(msg.to,"Semua Udah Hadir..\nSiap Nikung di Group\nBoss")
+
+                        elif cmd == "reject":
+                          if wait["selfbot"] == True:
+                            if msg._from in admin:
+                              ginvited = cl.getGroupIdsInvited()
+                              if ginvited != [] and ginvited != None:
+                                  for gid in ginvited:
+                                      cl.rejectGroupInvitation(gid)
+                                  cl.sendMessage(to, "Succes reject {} ".format(str(len(ginvited))))
+                              else:
+                                  cl.sendMessage(to, "Nothing")
 
                         elif cmd.startswith("broadcast: "):
                           if wait["selfbot"] == True:
@@ -2946,9 +2948,9 @@ def bot(op):
                                                 cl.sendText(msg.to,str(e))
 
 #SK
-                         elif cmd.startswith("spamtag "):
+                        elif cmd.startswith("spamtag "):
                           if wait["selfbot"] == True:
-                           if msg._from in admin:
+                            if msg._from in admin:
                                 if 'MENTION' in msg.contentMetadata.keys()!=None:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     key1 = key["MENTIONEES"][0]["M"]
