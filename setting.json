@@ -1,7 +1,20 @@
-{
-    "Addimage": false,
-    "Images": {},
+{ 
+    "restartPoint": {},
+    "restartBot": {},
+    "userAgent": {},
+    "keyCommand": "",
+    "autoAdd": true,
+    "autoJoin": true,
+    "autoReject": false,
+    "autoLeave": false,
+    "autoRead": false,
+    "server": {},
+    "changePicture": false,
+    "changeGroupPicture": false,
+    "autoJoinTicket": true,
     "Img": {},
+    "Images": {},
+    "Addimage": false,
     "SKAdmin": {},
     "SKGfoto": {},
     "SKSDadmin": false,
@@ -12,9 +25,7 @@
     "SKautojoin": true,
     "SKautoread": false,
     "SKautoscan": false,
-    "SKblacklist": {
-        "ub1c5a71f27b863896e9d44bea857d35b": true
-    },
+    "SKblacklist": {},
     "SKdblacklist": false,
     "SKfoto": {},
     "SKgreet": {},
@@ -27,19 +38,7 @@
     "SKprotqr": {},
     "SKreadMember": {},
     "SKreadPoint": {},
-    "SKvideo": {},
-    "SKwblacklist": false,
-    "autoAdd": false,
-    "autoJoin": false,
-    "autoJoinTicket": false,
-    "autoLeave": true,
-    "autoRead": false,
-    "autoReject": false,
-    "changeGroupPicture": false,
-    "changePicture": false,
-    "keyCommand": "",
-    "restartBot": {},
-    "restartPoint": "ub1c5a71f27b863896e9d44bea857d35b",
-    "server": {},
-    "userAgent": {}
+    "SKwblacklist": false
 }
+
+ 
