@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExliOElisulK9qJwd8hb.SCwNhYE4y4LUNus/QfFtwW.bL70skW2yK2c3oguCX6DFDKsKPAt4UicsKA5dRS+9Kc=")
+cl = LineClient(authToken="ExyqrPI9UcZ78GkUztpb.SCwNhYE4y4LUNus/QfFtwW.745KoLPad/NjljnqpoHaNaY8Rc38lkspIIy3b+EXWOg=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExR5BmQFUyNVu7VNCLz4.XuQrezi1qIyJlRlvV0wxra.oaS8srK+wOsmUnnFJCXgvlGPPM+2A+z79aJLQPR+nn0=")
+ki = LineClient(authToken="ExIh4zj5ib0xuBhcdGx2.UgaA6PtgDwrhl20KYKxh8G.AJzkgQSUAZtJp/wILG5637YNkcZcAGDx8syIrK+GsL0=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex34kVHHGYIWWwBDXMS2.UgaA6PtgDwrhl20KYKxh8G.vZIc1K/N50dOnwmRTrNJODi8sMBKNxnv9EyEfVYDUeM=")
+kk = LineClient(authToken="Ex0gUNAPzD1gM4CZ053c.gYj8eX14kEAzvSbV9TTxla.yb5hPAU5pOh2e8abqGaRbPYp/apUaWk7uzBWtgNfCG4=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExYqeOarj0yVcpYO26w7.lgJet9QL283RPOtfD1eg1W.D6Pr48BxoBZ2+j+w/IF03Vs+3t2MBp7GM+mEzh/eSnc=")
+kc = LineClient(authToken="ExBHwSbq30wKaAuszGCd.jB/U5D2EIoY5xGkQ7FOTtq.WoC8UV8Etbvk80i1S7XE8dfPrrOnPjfJFgKMNmyu5nE=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExyvHPogjTjXOZ3dDxk3.nsM86g66WhxwizzU8wsg8W.yKIiDh5BJcUCQK3Nt7lhR5r1sX6J+6QUi81/oWQ8MSE=")
+kb = LineClient(authToken="Ex5WVVAW1NcGDnW1LQU7.BiGakU1CeeRwXmH42j19bW.e9umaOKmCdBuCwDa2WsRZ90dCyLRbxr3i++QZr2uSPw=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExlMt8hxj3ShHWeqAgE6.z1isnjxuFVqKLrc5MOVULG.GCfWrAXqEIUlPrsHimqV9zjf9r1yNayUbdZ83D0Sd/g=")
+sw = LineClient(authToken="ExO4CZZzRivqOJAbVTd0.+CiloGc16pmEt5ebFRnHSa.kcrOKCr6TTRTSeqenA82ly3q+qg+16U5FWYTlOK1OsM=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -39,8 +39,8 @@ Bmid = kk.getProfile().mid
 Cmid = kc.getProfile().mid
 Dmid = kb.getProfile().mid
 Zmid = sw.getProfile().mid
-KAC = [cl,ki,kk,kc]
-ABC = [ki,kk,kc,kb,sw]
+KAC = [ki,kk,kc]
+ABC = [ki,kk,kc,kb]
 Bots = [mid,Amid,Bmid,Cmid,Dmid,Zmid]
 Saints = admin + staff
 
@@ -146,15 +146,13 @@ wait = {
             "status":False
             },
     "unsend":False,
-    "mention":"You can't join chat :v",
-    "Respontag":"What's wrong , i'm busy :3",
-    "welcome":"Welcome",
-    "leave":"See you",
+    "mention":"S̶̭̗̞̙̿͑̽̆̃̒į̷̙̝̦̤̜̗́̉ͅl̸̛͓͋͋͆̍ę̶͇̮̦̣̖̙̘̪̉n̸͍̦͉̖̟͚̗̣̍̓̽̅̚ť̴̙͋ ̷̨̳̠͎̮̘͇̀̅̀͒̈́͊̕͝T̸̡̯̗̩̺͉̑́͛̌̒ͅé̶̡̱̯̮̯̊̏́̀̃͜a̴̭͓̫͚̐́̂̍̂̊̋̚m̸̨̨̹͎͍̳̥͆̓͗̿͐͗͑̿̓͠ ̴̠͐̂B̷̛̳͎̫̻̫̯̣͓̲͋̀͋̋͊̈͗͑o̵̲̾̈́͒͗t̴̢͍̫̰̠̞͖͍̬̑̊̽͒́̈́͗ͅ",
+    "Respontag":"EH KANG COLI TAG MULLU S̶̭̗̞̙̿͑̽̆̃̒į̷̙̝̦̤̜̗́̉ͅl̸̛͓͋͋͆̍ę̶͇̮̦̣̖̙̘̪̉n̸͍̦͉̖̟͚̗̣̍̓̽̅̚ť̴̙͋ ̷̨̳̠͎̮̘͇̀̅̀͒̈́͊̕͝T̸̡̯̗̩̺͉̑́͛̌̒ͅé̶̡̱̯̮̯̊̏́̀̃͜a̴̭͓̫͚̐́̂̍̂̊̋̚m̸̨̨̹͎͍̳̥͆̓͗̿͐͗͑̿̓͠ ̴̠͐̂B̷̛̳͎̫̻̫̯̣͓̲͋̀͋̋͊̈͗͑o̵̲̾̈́͒͗t̴̢͍̫̰̠̞͖͍̬̑̊̽͒́̈́͗ͅ",
+    "leave":"Bye bye slam dari kami S̶̭̗̞̙̿͑̽̆̃̒į̷̙̝̦̤̜̗́̉ͅl̸̛͓͋͋͆̍ę̶͇̮̦̣̖̙̘̪̉n̸͍̦͉̖̟͚̗̣̍̓̽̅̚ť̴̙͋ ̷̨̳̠͎̮̘͇̀̅̀͒̈́͊̕͝T̸̡̯̗̩̺͉̑́͛̌̒ͅé̶̡̱̯̮̯̊̏́̀̃͜a̴̭͓̫͚̐́̂̍̂̊̋̚m̸̨̨̹͎͍̳̥͆̓͗̿͐͗͑̿̓͠ ̴̠͐̂B̷̛̳͎̫̻̫̯̣͓̲͋̀͋̋͊̈͗͑o̵̲̾̈́͒͗t̴̢͍̫̰̠̞͖͍̬̑̊̽͒́̈́͗ͅ",
     "mention":"Cuy ngintip mele gbung sini dihh",
-    "Respontag":"Tag 1x besok bunting",
     "welcome":"Welcome semoga bahagia",
     "comment":"Auto like by 🛡Silent Bot🛡",
-    "message":"Thanks for add me.\n☆ 🛡Silent Bot🛡\n Add Creator kami\nline.me/p/~dhenz415",
+    "message":"Thanks for add me.\n☆ 🛡S̶̭̗̞̙̿͑̽̆̃̒į̷̙̝̦̤̜̗́̉ͅl̸̛͓͋͋͆̍ę̶͇̮̦̣̖̙̘̪̉n̸͍̦͉̖̟͚̗̣̍̓̽̅̚ť̴̙͋ ̷̨̳̠͎̮̘͇̀̅̀͒̈́͊̕͝T̸̡̯̗̩̺͉̑́͛̌̒ͅé̶̡̱̯̮̯̊̏́̀̃͜a̴̭͓̫͚̐́̂̍̂̊̋̚m̸̨̨̹͎͍̳̥͆̓͗̿͐͗͑̿̓͠ ̴̠͐̂B̷̛̳͎̫̻̫̯̣͓̲͋̀͋̋͊̈͗͑o̵̲̾̈́͒͗t̴̢͍̫̰̠̞͖͍̬̑̊̽͒́̈́͗ͅ🛡\n Add Creator kami\nline.me/p/~dhenz415",
     }
 
 read = {
