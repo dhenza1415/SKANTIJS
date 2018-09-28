@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExR0l9rgCK0OHyHKb9c2.UgaA6PtgDwrhl20KYKxh8G.mQpB8mmlE2hrDbsc/pHfx1klI6gaT5qiMYr6UvbLFKw=")
+cl = LineClient(authToken="ExMlvIKGA3vA2tIy9du2.UgaA6PtgDwrhl20KYKxh8G.9y+Us9qN94gHNZs6yLBOEmURKhkgLIno3MHWjUVMoss=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExbkaTTz6hIX0xMn8nb3.nsM86g66WhxwizzU8wsg8W.nckKN2kTQgqEw0vW/hqJTegRFaDaucOxNuAc+kPqtAg=")
+ki = LineClient(authToken="Ex9RLWo3orqtDI0gaTX3.nsM86g66WhxwizzU8wsg8W.8e7jS/U7WrHLGg7e4Z5Lj85uyLS52dkNW9XE/jRwcEU=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="ExisgZXrcgwWCJIr6sYc.gYj8eX14kEAzvSbV9TTxla.UlNK1TFWDzCzsQX3eI3I7posLnfdx/AJqCxQ8hSpP+s=")
+kk = LineClient(authToken="ExcFW23X4rPuEOAQaLWc.gYj8eX14kEAzvSbV9TTxla.0FdbAKvbwdyG7JHJQ7UJSpJ1ltsa7JbadqiTH5QF3E8=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExAYkpb1KPBYbYGlZYBd.jB/U5D2EIoY5xGkQ7FOTtq./3JnF4QaeTgJWQmrU61EAiChInLe9EKPILV+ACGSNzg=")
+kc = LineClient(authToken="ExaVneBmeMUaZgTUkhvd.jB/U5D2EIoY5xGkQ7FOTtq.cbKGwKstZ+UBhm8cWbDQNmj0dB0DiHA9KUZo5TZhqMw=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExkDvCThkSDvqir9eLw7.BiGakU1CeeRwXmH42j19bW.xfjkLg0EWV+v6SLDmID6ol/dBxZ1AtKQV+YlMaUkIsA=")
+kb = LineClient(authToken="ExYe5QPVuzctthPH5EQ7.BiGakU1CeeRwXmH42j19bW.F4VGqi3N2YPAUQMeKAiX6crxrHdoNste9A30Rw2Qtsk=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExhSPDgkNuAAQcCbfR3e.oyklsKbLdlIew2eIeRuSFG.M5eFviTQkxOQ0S9hStDqcMP2hKPKs34vELHoWwIwW7Q=")
+sw = LineClient(authToken="ExKUPuLV9GqtWou0HAn7.dgzib3ot1/itWEJn4nwevW.2Ldupnmk6KuWJ8w4N1cTk9wBduHVwXF7iVEznAmWeTE=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
