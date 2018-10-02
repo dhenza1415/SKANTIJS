@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExVzYuxPTWFavq13UtU2.UgaA6PtgDwrhl20KYKxh8G.052pD/TeGVpdUvdviqrsH8RO1QbMSbi+mxH9Rtik5yQ=")
+cl = LineClient(authToken="Ex5LfGEB3Ztl9aBC6052.UgaA6PtgDwrhl20KYKxh8G.F101g7/mtfkZDKMx9TDQmNznFhBnmYZ9GY+tH37pyTY=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExftJBmubseIEVacXfX3.nsM86g66WhxwizzU8wsg8W.f+UNWEzEgU8OyTSrwHXfnmLzvDmVcc3KOKOZ8wDXk8U=")
+ki = LineClient(authToken="Exd8vnzOUQRHc9yPgeF3.nsM86g66WhxwizzU8wsg8W.BQDXi4yHmNVlNc21u66KqC3SZKZYZXjz/Ip0NJSgXU0=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex62DlqrmwXdIainU05c.gYj8eX14kEAzvSbV9TTxla.x+G6UGSfBBj5vA+eKZvWaDd/vOSOpzuukDwc4bP7Fa8=")
+kk = LineClient(authToken="Ex4hFDxzzoOdeUf47ztc.gYj8eX14kEAzvSbV9TTxla.3hwrqsg1p37Eglo/5QAknap2Rgb5UHjHBVINq8GRkco=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExXITA7wEix5tLMVobxd.jB/U5D2EIoY5xGkQ7FOTtq.2QlKhpLhA5ev473F36xGnaJyJ2fru0bIjht4JJrnp8A=")
+kc = LineClient(authToken="ExLvAsN1oSOvOsasSb0d.jB/U5D2EIoY5xGkQ7FOTtq.5H0pWTHAInk0SVLaR/kHMyy/wPmHv3aoan63q9ZfJdk=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExDBOmLur8ql6DkW1T27.BiGakU1CeeRwXmH42j19bW.lrFJ6m6TKXg84vaIhH2gKsbTUKe1OkteleymcCflbwg=")
+kb = LineClient(authToken="ExKytqx7EsAajTlatLL7.BiGakU1CeeRwXmH42j19bW.nj1N5BL3l4NCKVJ/7NumisBwWq5PmbsYsOyQUs+N638=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExGPmYfVypIuZ0LRi0w1.Fu4JLf5bTsDevBLF+yRX8q./RinEJB3GAy6KDRr67Xa5kY2mFzIxRI1jzUfxgW/dQc=")
+sw = LineClient(authToken="ExNpssw5Ak87tuTcOOU1.Fu4JLf5bTsDevBLF+yRX8q.1yPYnKEA9SXd8D9KEqtJRdwFxHd4fryt5r0jR8S/gVM=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -136,7 +136,7 @@ wait = {
             "name": "",
             "status":False,
             },
-    "Videos":{},
+    "Video":{},
     "Addaudio":{
             "name": "",
             "status":False,
@@ -1364,21 +1364,6 @@ def bot(op):
                                 except:
                                     pass
 
-        if op.type == 55:
-            if op.param2 in wait["blacklist"]:
-                if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
-                    random.choice(ABC).kickoutFromGroup(op.param1,[op.param2])
-                else:
-                    pass
-
-            if op.param1 in Setmain["SKreadPoint"]:
-                if op.param2 in Setmain["SKreadMember"][op.param1]:
-                    pass
-                else:
-                    Setmain["readMember"][op.param1][op.param2] = True
-            else:
-                pass
-
         if op.type == 19:
             try:
                 if op.param1 in protectantijs:
@@ -1491,7 +1476,7 @@ def bot(op):
                             except:
                                 try:
                                     G = ki.getGroup(op.param1)
-                                    G.preventedJoinByTicket = True
+                                    G.preventedJoinByTicket = False
                                     ki.kickoutFromGroup(op.param1,[op.param2])
                                     ki.updateGroup(G)
                                     Ticket = ki.reissueGroupTicket(op.param1)
@@ -1545,7 +1530,7 @@ def bot(op):
                             except:
                                 try:
                                     G = kk.getGroup(op.param1)
-                                    G.preventedJoinByTicket = True
+                                    G.preventedJoinByTicket = False
                                     kk.kickoutFromGroup(op.param1,[op.param2])
                                     kk.updateGroup(G)
                                     Ticket = kk.reissueGroupTicket(op.param1)
@@ -1599,7 +1584,7 @@ def bot(op):
                             except:
                                 try:
                                     G = kc.getGroup(op.param1)
-                                    G.preventedJoinByTicket = True
+                                    G.preventedJoinByTicket = False
                                     kc.kickoutFromGroup(op.param1,[op.param2])
                                     kc.updateGroup(G)
                                     Ticket = kc.reissueGroupTicket(op.param1)
@@ -1653,7 +1638,7 @@ def bot(op):
                             except:
                                 try:
                                     G = cl.getGroup(op.param1)
-                                    G.preventedJoinByTicket = True
+                                    G.preventedJoinByTicket = False
                                     cl.kickoutFromGroup(op.param1,[op.param2])
                                     cl.updateGroup(G)
                                     Ticket = cl.reissueGroupTicket(op.param1)
@@ -1786,7 +1771,7 @@ def bot(op):
                    if op.param2 in Setmain["SKreadMember"][op.param1]:
                        pass
                    else:
-                       Setmain["SKreadMember"][op.param1][op.param2] = False
+                       Setmain["SKreadMember"][op.param1][op.param2] = True
                 else:
                    pass
             except:
