@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from .object import Object
+from .object import LineObject
 from random import randint
 
 import json, shutil, time, os, base64, tempfile
     
-class Models(Object):
+class LineModels(LineObject):
+
+    _channel    = None
         
     def __init__(self):
-        Object.__init__(self)
+        LineObject.__init__(self)
+
+    def setChannelToModels(self, channel):
+        self._channel = channel
 
     """Text"""
 
@@ -63,8 +68,6 @@ class Models(Object):
         oldList = {'name': self.genTempFile('file'),'ver': '1.0'}
         if returnAs not in ['json','b64','default']:
             raise Exception('Invalid parameter returnAs')
-        if 'name' in newList and not newList['name']:
-            newList['name'] = oldList['name']
         oldList.update(newList)
         if 'range' in oldList:
             new_range='bytes 0-%s\/%s' % ( str(oldList['range']-1), str(oldList['range']) )

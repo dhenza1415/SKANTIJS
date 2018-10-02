@@ -2,21 +2,24 @@
 from .config import Config
 import json, requests, urllib
 
-class Server(Config):
-    _session        = requests.session()
-    timelineHeaders = {}
+class LineServer(Config):
+    _session    = requests.session()
+    channelHeaders  = {}
     Headers         = {}
 
-    def __init__(self, appType=None):
+    def __init__(self):
         self.Headers = {}
         self.channelHeaders = {}
-        Config.__init__(self, appType)
+        Config.__init__(self)
 
     def parseUrl(self, path):
         return self.LINE_HOST_DOMAIN + path
 
     def urlEncode(self, url, path, params=[]):
-        return url + path + '?' + urllib.parse.urlencode(params)
+        try:        # Works with python 2.x
+            return url + path + '?' + urllib.urlencode(params)
+        except:     # Works with python 3.x
+            return url + path + '?' + urllib.parse.urlencode(params)
 
     def getJson(self, url, allowHeader=False):
         if allowHeader is False:
@@ -30,11 +33,11 @@ class Server(Config):
     def setHeaders(self, argument, value):
         self.Headers[argument] = value
 
-    def setTimelineHeadersWithDict(self, headersDict):
-        self.timelineHeaders.update(headersDict)
+    def setChannelHeadersWithDict(self, headersDict):
+        self.channelHeaders.update(headersDict)
 
-    def setTimelineHeaders(self, argument, value):
-        self.timelineHeaders[argument] = value
+    def setChannelHeaders(self, argument, value):
+        self.channelHeaders[argument] = value
 
     def additionalHeaders(self, source, newSource):
         headerList={}
