@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExOWflck20FxVvxBN082.UgaA6PtgDwrhl20KYKxh8G.Mvs49mBsuOfOgieLIXamZNZXe+qhELU2HgtycJlEyrA=")
+cl = LineClient(authToken="ExVzYuxPTWFavq13UtU2.UgaA6PtgDwrhl20KYKxh8G.052pD/TeGVpdUvdviqrsH8RO1QbMSbi+mxH9Rtik5yQ=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="ExP9d5eZ2eCY4X9YoUN3.nsM86g66WhxwizzU8wsg8W.vlqwpR7cnWymnj2QPDBmzY1FUGopilcWIZiY+c2YOCY=")
+ki = LineClient(authToken="ExftJBmubseIEVacXfX3.nsM86g66WhxwizzU8wsg8W.f+UNWEzEgU8OyTSrwHXfnmLzvDmVcc3KOKOZ8wDXk8U=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex0buSmLSJBYxFxBNAdc.gYj8eX14kEAzvSbV9TTxla./1tjKkERqaC/AQh+ZmLwwnjd6VqgFuoHOlVIzkKuRaA=")
+kk = LineClient(authToken="Ex62DlqrmwXdIainU05c.gYj8eX14kEAzvSbV9TTxla.x+G6UGSfBBj5vA+eKZvWaDd/vOSOpzuukDwc4bP7Fa8=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExYRpzCKsQOK1vnuk4sd.jB/U5D2EIoY5xGkQ7FOTtq.Cl8sp4NBn3mFGlgycJX7VMcpqhG0iFHByLNJlIwy+9g=")
+kc = LineClient(authToken="ExXITA7wEix5tLMVobxd.jB/U5D2EIoY5xGkQ7FOTtq.2QlKhpLhA5ev473F36xGnaJyJ2fru0bIjht4JJrnp8A=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="Ex8frECVlvK2m41aQqn7.BiGakU1CeeRwXmH42j19bW.lkr/Obi8FHJAVUTc2h3yY4hNzmmdueELZfjv0YnROOE=")
+kb = LineClient(authToken="ExDBOmLur8ql6DkW1T27.BiGakU1CeeRwXmH42j19bW.lrFJ6m6TKXg84vaIhH2gKsbTUKe1OkteleymcCflbwg=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="Ex36Du91H8VAm3SWIgfe.BShFDWBIn7Ntkx6hjDkkdG.wjfSfmHeLqV2vg29Q7LnBrnMHxfD68vBzF9A/vtPPuo=")
+sw = LineClient(authToken="ExGPmYfVypIuZ0LRi0w1.Fu4JLf5bTsDevBLF+yRX8q./RinEJB3GAy6KDRr67Xa5kY2mFzIxRI1jzUfxgW/dQc=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -156,8 +156,8 @@ wait = {
     }
 
 read = {
-    "readPoint":{},
-    "readMember":{},
+    "SKreadPoint":{},
+    "SKreadMember":{},
     "readTime":{},
     "ROM":{},
 }
@@ -165,7 +165,7 @@ read = {
 cctv = {
     "cyduk":{},
     "point":{},
-    "sidermem":{}
+    "sidermem":{},
 }
 
 myProfile = {
@@ -610,7 +610,7 @@ def helpbot():
                    "╠✪➣ "  + key + "Gift:「Mid」「Result」\n" + \
                    "╠✪➣ "  + key + "Spam:「Mid」「Result」\n" + \
                    "╚═[🇦🇱✪S⃟I⃟L⃟E⃟N⃟T⃟ T⃟E⃟A⃟M⃟ B⃟O⃟T⃟S⃟✪🇦🇱]═╝"
-                  
+
     return helpMessage1
 
 def bot(op):
@@ -1320,7 +1320,49 @@ def bot(op):
                             X.preventedJoinByTicket = True
                             ki.updateGroup(X)
                     except:
-                        Pass
+                        try:
+                            if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
+                                G = kk.getGroup(op.param1)
+                                G.preventedJoinByTicket = False
+                                kk.updateGroup(G)
+                                invsend = 0
+                                Ticket = kk.reissueGroupTicket(op.param1)
+                                sw.acceptGroupInvitationByTicket(op.param1,Ticket)
+                                sw.kickoutFromGroup(op.param1,[op.param2])
+                                sw.leaveGroup(op.param1)
+                                X = kk.getGroup(op.param1)
+                                X.preventedJoinByTicket = True
+                                kk.updateGroup(X)
+                        except:
+                            try:
+                                if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
+                                    G = kc.getGroup(op.param1)
+                                    G.preventedJoinByTicket = False
+                                    kc.updateGroup(G)
+                                    invsend = 0
+                                    Ticket = kc.reissueGroupTicket(op.param1)
+                                    sw.acceptGroupInvitationByTicket(op.param1,Ticket)
+                                    sw.kickoutFromGroup(op.param1,[op.param2])
+                                    sw.leaveGroup(op.param1)
+                                    X = kc.getGroup(op.param1)
+                                    X.preventedJoinByTicket = True
+                                    kc.updateGroup(X)
+                            except:
+                                try:
+                                    if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
+                                        G = kb.getGroup(op.param1)
+                                        G.preventedJoinByTicket = False
+                                        kb.updateGroup(G)
+                                        invsend = 0
+                                        Ticket = kb.reissueGroupTicket(op.param1)
+                                        sw.acceptGroupInvitationByTicket(op.param1,Ticket)
+                                        sw.kickoutFromGroup(op.param1,[op.param2])
+                                        sw.leaveGroup(op.param1)
+                                        X = kb.getGroup(op.param1)
+                                        X.preventedJoinByTicket = True
+                                        kb.updateGroup(X)
+                                except:
+                                    pass
 
         if op.type == 55:
             if op.param2 in wait["blacklist"]:
@@ -1329,8 +1371,8 @@ def bot(op):
                 else:
                     pass
 
-            if op.param1 in Setmain["readPoint"]:
-                if op.param2 in Setmain["readMember"][op.param1]:
+            if op.param1 in Setmain["SKreadPoint"]:
+                if op.param2 in Setmain["SKreadMember"][op.param1]:
                     pass
                 else:
                     Setmain["readMember"][op.param1][op.param2] = True
