@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from .channel import Channel
+
 import json, time, base64
 
 def loggedIn(func):
@@ -7,40 +9,54 @@ def loggedIn(func):
         if args[0].isLogin:
             return func(*args, **kwargs)
         else:
-            args[0].callback.other("You want to call the function, you must login to LINE")
+            args[0].callback.other('You want to call the function, you must login to LINE')
     return checkLogin
     
-class LineTimeline(object):
+class Timeline(Channel):
 
     def __init__(self):
-        if self.isLogin == True and self.channelId == self.server.CHANNEL_ID['LINE_TIMELINE']:
-            self.client.log('[%s] : LineTimeline attached' % self.client.profile.displayName)
+        if not self.channelId:
+            self.channelId = self.server.CHANNEL_ID['LINE_TIMELINE']
+        Channel.__init__(self, self.channel, self.channelId, False)
+        self.tl = self.getChannelResult()
+        self.__loginTimeline()
         
+    def __loginTimeline(self):
+        self.server.setTimelineHeadersWithDict({
+            'Content-Type': 'application/json',
+            'User-Agent': self.server.USER_AGENT,
+            'X-Line-Mid': self.profile.mid,
+            'X-Line-Carrier': self.server.CARRIER,
+            'X-Line-Application': self.server.APP_NAME,
+            'X-Line-ChannelToken': self.tl.channelAccessToken
+        })
+        self.profileDetail = self.getProfileDetail()
+
     """Timeline"""
 
     @loggedIn
     def getFeed(self, postLimit=10, commentLimit=1, likeLimit=1, order='TIME'):
         params = {'postLimit': postLimit, 'commentLimit': commentLimit, 'likeLimit': likeLimit, 'order': order}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v27/feed/list.json', params)
-        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/feed/list.json', params)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def getHomeProfile(self, mid=None, postLimit=10, commentLimit=1, likeLimit=1):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         params = {'homeId': mid, 'postLimit': postLimit, 'commentLimit': commentLimit, 'likeLimit': likeLimit, 'sourceType': 'LINE_PROFILE_COVER'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v27/post/list.json', params)
-        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/post/list.json', params)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def getProfileDetail(self, mid=None):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         params = {'userMid': mid}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v1/userpopup/getDetail.json', params)
-        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
@@ -68,54 +84,65 @@ class LineTimeline(object):
     """Post"""
 
     @loggedIn
-    def createPost(self, text):
-        params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/post/create.json', params)
+    def createPost(self, text, holdingTime=None):
+        params = {'homeId': self.profile.mid, 'sourceType': 'TIMELINE'}
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/post/create.json', params)
         payload = {'postInfo': {'readPermission': {'type': 'ALL'}}, 'sourceType': 'TIMELINE', 'contents': {'text': text}}
+        if holdingTime != None:
+            payload["postInfo"]["holdingTime"] = holdingTime
         data = json.dumps(payload)
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
+        return r.json()
+
+    @loggedIn
+    def sendPostToTalk(self, mid, postId):
+        if mid is None:
+            mid = self.profile.mid
+        params = {'receiveMid': mid, 'postId': postId}
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/post/sendPostToTalk.json', params)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def createComment(self, mid, postId, text):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/comment/create.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/comment/create.json', params)
         data = {'commentText': text, 'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def deleteComment(self, mid, postId, commentId):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/comment/delete.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/comment/delete.json', params)
         data = {'commentId': commentId, 'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def likePost(self, mid, postId, likeType=1001):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         if likeType not in [1001,1002,1003,1004,1005,1006]:
             raise Exception('Invalid parameter likeType')
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/like/create.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/like/create.json', params)
         data = {'likeType': likeType, 'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
     def unlikePost(self, mid, postId):
         if mid is None:
-            mid = self.client.profile.mid
+            mid = self.profile.mid
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v33/like/cancel.json', params)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/like/cancel.json', params)
         data = {'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         return r.json()
 
     """Group Post"""
@@ -124,7 +151,7 @@ class LineTimeline(object):
     def createGroupPost(self, mid, text):
         payload = {'postInfo': {'readPermission': {'homeId': mid}}, 'sourceType': 'TIMELINE', 'contents': {'text': text}}
         data = json.dumps(payload)
-        r = self.server.postContent(self.server.LINE_TIMELINE_API + '/v27/post/create.json', data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(self.server.LINE_TIMELINE_API + '/v39/post/create.json', data=data, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
@@ -132,7 +159,7 @@ class LineTimeline(object):
         data = json.dumps({'title': name, 'type': 'image'})
         params = {'homeId': mid,'count': '1','auto': '0'}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_MH, '/album/v3/album.json', params)
-        r = self.server.postContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
         if r.status_code != 201:
             raise Exception('Create a new album failure.')
         return True
@@ -141,7 +168,7 @@ class LineTimeline(object):
     def deleteGroupAlbum(self, mid, albumId):
         params = {'homeId': mid}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_MH, '/album/v3/album/%s' % albumId, params)
-        r = self.server.deleteContent(url, headers=self.server.channelHeaders)
+        r = self.server.deleteContent(url, headers=self.server.timelineHeaders)
         if r.status_code != 201:
             raise Exception('Delete album failure.')
         return True
@@ -149,8 +176,8 @@ class LineTimeline(object):
     @loggedIn
     def getGroupPost(self, mid, postLimit=10, commentLimit=1, likeLimit=1):
         params = {'homeId': mid, 'commentLimit': commentLimit, 'likeLimit': likeLimit, 'sourceType': 'TALKROOM'}
-        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v27/post/list.json', params)
-        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/post/list.json', params)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     """Group Album"""
@@ -159,7 +186,7 @@ class LineTimeline(object):
     def getGroupAlbum(self, mid):
         params = {'homeId': mid, 'type': 'g', 'sourceType': 'TALKROOM'}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_MH, '/album/v3/albums.json', params)
-        r = self.server.getContent(url, headers=self.server.channelHeaders)
+        r = self.server.getContent(url, headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
@@ -167,7 +194,7 @@ class LineTimeline(object):
         data = json.dumps({'title': name})
         params = {'homeId': mid}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_MH, '/album/v3/album/%s' % albumId, params)
-        r = self.server.putContent(url, data=data, headers=self.server.channelHeaders)
+        r = self.server.putContent(url, data=data, headers=self.server.timelineHeaders)
         if r.status_code != 201:
             raise Exception('Change album name failure.')
         return True
@@ -181,7 +208,7 @@ class LineTimeline(object):
             'range': len(file),
             'type': 'image'
         }
-        hr = self.server.additionalHeaders(self.server.channelHeaders, {
+        hr = self.server.additionalHeaders(self.server.timelineHeaders, {
             'Content-Type': 'image/jpeg',
             'X-Line-Mid': mid,
             'X-Line-Album': albumId,
@@ -198,7 +225,7 @@ class LineTimeline(object):
             saveAs = self.genTempFile('path')
         if returnAs not in ['path','bool','bin']:
             raise Exception('Invalid returnAs value')
-        hr = self.server.additionalHeaders(self.server.channelHeaders, {
+        hr = self.server.additionalHeaders(self.server.timelineHeaders, {
             'Content-Type': 'image/jpeg',
             'X-Line-Mid': mid,
             'X-Line-Album': albumId
@@ -216,13 +243,3 @@ class LineTimeline(object):
                 return r.raw
         else:
             raise Exception('Download image album failure.')
-    
-    """Contact"""
-
-    @loggedIn
-    def getProfileCoverURL(self, mid=None):
-        if mid is None:
-            mid = self.client.profile.mid
-        home = self.getProfileDetail(mid)
-        params = {'userid': mid, 'oid': home['result']['objectId']}
-        return self.server.urlEncode(self.server.LINE_OBS_DOMAIN, '/myhome/c/download.nhn', params)

@@ -1,19 +1,131 @@
 # -*- coding: utf-8 -*-
 from akad.ttypes import *
+from random import randint
 
 def loggedIn(func):
     def checkLogin(*args, **kwargs):
-        if args[0].isLogin:
-            return func(*args, **kwargs)
+        if args[0].isSupportSquare:
+            if args[0].isLogin:
+                return func(*args, **kwargs)
+            else:
+                args[0].callback.other('You want to call the function, you must login to LINE')
         else:
-            args[0].callback.other("You want to call the function, you must login to LINE")
+            args[0].callback.other('Your LINE account doesn\'t support Square')
     return checkLogin
 
-class LineSquare(object):
+class Square(object):
+    isSupportSquare = False
     isLogin = False
 
     def __init__(self):
         self.isLogin = True
+        try:
+            self.isSupportSquare = True
+            self.squares    = self.getJoinedSquares().squares
+            self.squareObsToken = self.acquireEncryptedAccessToken(2).split('\x1e')[1]
+        except:
+            self.isSupportSquare = False
+            self.log('Your LINE account doesn\'t support Square')
+
+    """Object"""
+
+    @loggedIn
+    def sendSquareImage(self, squareChatMid, path): # Under development
+        return self.uploadObjSquare(squareChatMid=squareChatMid, path=path, type='image', returnAs='bool')
+
+    @loggedIn
+    def sendSquareImageWithURL(self, squareChatMid, url): # Under development
+        path = self.downloadFileURL(url, 'path')
+        return self.sendSquareImage(squareChatMid, path)
+
+    @loggedIn
+    def sendSquareGIF(self, squareChatMid, path): # Under development
+        return self.uploadObjSquare(squareChatMid=squareChatMid, path=path, type='gif', returnAs='bool')
+
+    @loggedIn
+    def sendSquareGIFWithURL(self, squareChatMid, url): # Under development
+        path = self.downloadFileURL(url, 'path')
+        return self.sendSquareGIF(squareChatMid, path)
+
+    @loggedIn
+    def sendSquareVideo(self, squareChatMid, path): # Under development
+        return self.uploadObjSquare(squareChatMid=squareChatMid, path=path, type='video', returnAs='bool')
+
+    @loggedIn
+    def sendSquareVideoWithURL(self, squareChatMid, url): # Under development
+        path = self.downloadFileURL(url, 'path')
+        return self.sendSquareVideo(squareChatMid, path)
+
+    @loggedIn
+    def sendSquareAudio(self, squareChatMid, path): # Under development
+        return self.uploadObjSquare(squareChatMid=squareChatMid, path=path, type='audio', returnAs='bool')
+
+    @loggedIn
+    def sendSquareAudioWithURL(self, squareChatMid, url): # Under development
+        path = self.downloadFileURL(url, 'path')
+        return self.sendSquareAudio(squareChatMid, path)
+
+    @loggedIn
+    def sendSquareFile(self, squareChatMid, path): # Under development
+        return self.uploadObjSquare(squareChatMid=squareChatMid, path=path, type='file', returnAs='bool')
+
+    @loggedIn
+    def sendSquareFileWithURL(self, squareChatMid, url, fileName=''): # Under development
+        path = self.downloadFileURL(url, 'path')
+        return self.sendSquareFile(squareChatMid, path, fileName)
+
+    """Square Message"""
+        
+    @loggedIn
+    def sendSquareMessage(self, squareChatMid, text, contentMetadata={}, contentType=0):
+        rq = SendMessageRequest()
+        rq.squareChatMid = squareChatMid
+        rq.squareMessage = SquareMessage()
+        msg = Message()
+        msg.to = squareChatMid
+        msg.text = text
+        msg.contentType, msg.contentMetadata = contentType, contentMetadata
+        rq.squareMessage.message = msg
+        rq.squareMessage.fromType = 4
+        if squareChatMid not in self._messageReq:
+            self._messageReq[squareChatMid] = -1
+        self._messageReq[squareChatMid] += 1
+        rq.squareMessage.squareMessageRevision = self._messageReq[squareChatMid]
+        return self.square.sendMessage(rq)
+
+    @loggedIn
+    def sendSquareSticker(self, squareChatMid, packageId, stickerId):
+        contentMetadata = {
+            'STKVER': '100',
+            'STKPKGID': packageId,
+            'STKID': stickerId
+        }
+        return self.sendSquareMessage(squareChatMid, '', contentMetadata, 7)
+        
+    @loggedIn
+    def sendSquareContact(self, squareChatMid, mid):
+        contentMetadata = {'mid': mid}
+        return self.sendSquareMessage(squareChatMid, '', contentMetadata, 13)
+
+    @loggedIn
+    def sendSquareGift(self, squareChatMid, productId, productType):
+        if productType not in ['theme','sticker']:
+            raise Exception('Invalid productType value')
+        contentMetadata = {
+            'MSGTPL': str(randint(0, 10)),
+            'PRDTYPE': productType.upper(),
+            'STKPKGID' if productType == 'sticker' else 'PRDID': productId
+        }
+        return self.sendSquareMessage(squareChatMid, '', contentMetadata, 9)
+        
+    @loggedIn
+    def destroySquareMessage(self, squareChatMid, messageId):
+        rq = DestroyMessageRequest()
+        rq.squareChatMid = squareChatMid
+        rq.messageId = messageId
+        return self.square.destroyMessage(rq)
+
+    """Square"""
         
     @loggedIn
     def searchSquareMembers(self, squareMid, continuationToken=None, limit=50):
@@ -38,24 +150,17 @@ class LineSquare(object):
         return self.square.approveSquareMembers(rq)
         
     @loggedIn
-    def destroySquareMessage(self, squareChatMid, messageId):
-        rq = DestroyMessageRequest()
-        rq.squareChatMid = squareChatMid
-        rq.messageId = messageId
-        return self.square.destroyMessage(rq)
-        
-    @loggedIn
     def deleteSquare(self, mid):
         rq = DeleteSquareRequest()
         rq.mid = mid
-        rq.revision = self.client.revision
+        rq.revision = self.revision
         return self.square.deleteSquare(rq)
 
     @loggedIn
     def deleteSquareChat(self, squareChatMid):
         rq = DeleteSquareChatRequest()
         rq.squareChatMid = squareChatMid
-        rq.revision = self.client.revision
+        rq.revision = self.revision
         return self.square.deleteSquareChat(request)
         
     @loggedIn
@@ -76,7 +181,7 @@ class LineSquare(object):
     @loggedIn
     def createSquareChat(self, squareMid, name, squareMemberMids):
         rq = CreateSquareChatRequest()
-        rq.reqSeq = self.client.revision
+        rq.reqSeq = self.revision
         rq.squareChat = SquareChat()
         rq.squareChat.squareMid = squareMid
         rq.squareChat.name = name
@@ -84,17 +189,17 @@ class LineSquare(object):
         return self.square.createSquareChat(request)
         
     @loggedIn
-    def fetchSquareChatEvents(self, subscriptionId, squareChatMid, syncToken=None, limit=50, direction=2):
+    def fetchSquareChatEvents(self, squareChatMid, subscriptionId=0, syncToken='', limit=50, direction=2):
         rq = FetchSquareChatEventsRequest()
-        rq.subscriptionId = subscriptionId
         rq.squareChatMid = squareChatMid
+        rq.subscriptionId = subscriptionId
         rq.syncToken = syncToken
         rq.limit = limit
         rq.direction = direction
         return self.square.fetchSquareChatEvents(rq)
         
     @loggedIn
-    def fetchMyEvents(self, subscriptionId, syncToken=None, continuationToken=None, limit=50):
+    def fetchMyEvents(self, subscriptionId=0, syncToken='', continuationToken=None, limit=50):
         rq = FetchMyEventsRequest()
         rq.subscriptionId = subscriptionId
         rq.syncToken = syncToken
@@ -122,7 +227,7 @@ class LineSquare(object):
         return self.square.leaveSquare(rq)
 
     @loggedIn
-    def leaveSquareChat(self, squareChatMid, squareChatMemberRevision, sayGoodbye=False):
+    def leaveSquareChat(self, squareChatMid, squareChatMemberRevision, sayGoodbye=True):
         rq = LeaveSquareChatRequest()
         rq.squareChatMid = squareChatMid
         rq.sayGoodbye = sayGoodbye
@@ -143,7 +248,7 @@ class LineSquare(object):
         rq.member.squareMid = squareMid
         rq.member.displayName = displayName
         rq.member.profileImageObsHash = profileImageObsHash
-        return self.square.joinSquareChat(rq)
+        return self.square.joinSquare(rq)
         
     @loggedIn
     def inviteToSquare(self, squareMid, squareChatMid, invitees=[]):
@@ -203,30 +308,43 @@ class LineSquare(object):
         
     @loggedIn
     def getSquareChat(self, squareChatMid):
-        rq = GetSquareChatStatusRequest()
+        rq = GetSquareChatRequest()
         rq.squareChatMid = squareChatMid
         return self.square.getSquareChat(rq)
         
     @loggedIn
     def getSquare(self, mid):
-        return self.square.getSquare(mid)
+        rq = GetSquareRequest()
+        rq.mid = mid
+        return self.square.getSquare(rq)
         
     @loggedIn
-    def sendSquareMessage(self, squareChatMid, text, contentMetadata={}, contentType=0):
-        rq = SendMessageRequest()
+    def getSquareChatAnnouncements(self, squareChatMid):
+        rq = GetSquareChatAnnouncementsRequest()
         rq.squareChatMid = squareChatMid
-        rq.squareMessage = SquareMessage()
-        msg = Message()
-        msg.to = squareChatMid
-        msg.text = text
-        msg.contentType, msg.contentMetadata = contentType, contentMetadata
-        rq.squareMessage.message = msg
-        rq.squareMessage.fromType = 4
-        if to not in self.client._messageReq:
-            self.client._messageReq[to] = -1
-        self.client._messageReq[to] += 1
-        rq.squareMessage.squareMessageRevision = self.client._messageReq[to]
-        return self.square.sendMessage(rq)
+        return self.square.getSquareChatAnnouncements(rq)
+        
+    @loggedIn
+    def deleteSquareChatAnnouncement(self, squareChatMid, announcementSeq):
+        rq = DeleteSquareChatAnnouncementRequest()
+        rq.squareChatMid = squareChatMid
+        rq.squareChatMid = announcementSeq
+        return self.square.deleteSquareChatAnnouncement(rq)
+        
+    @loggedIn
+    def createSquareChatAnnouncement(self, squareChatMid, text, messageId='', senderSquareMemberMid=''):
+        rq = CreateSquareChatAnnouncementRequest()
+        rq.reqSeq = 0
+        rq.squareChatMid = squareChatMid
+        rq.squareChatAnnouncement = SquareChatAnnouncement()
+        rq.squareChatAnnouncement.announcementSeq = 0
+        rq.squareChatAnnouncement.type = 0
+        rq.squareChatAnnouncement.contents = SquareChatAnnouncementContents()
+        rq.squareChatAnnouncement.contents.textMessageAnnouncementContents = TextMessageAnnouncementContents()
+        rq.squareChatAnnouncement.contents.textMessageAnnouncementContents.messageId = messageId
+        rq.squareChatAnnouncement.contents.textMessageAnnouncementContents.text = text
+        rq.squareChatAnnouncement.contents.textMessageAnnouncementContents.senderSquareMemberMid = senderSquareMemberMid
+        return self.square.createSquareChatAnnouncement(rq)
 
     @loggedIn
     def getJoinedSquares(self, continuationToken=None, limit=50):
@@ -234,6 +352,13 @@ class LineSquare(object):
         rq.continuationToken = continuationToken
         rq.limit = limit
         return self.square.getJoinedSquares(rq)
+
+    @loggedIn
+    def getJoinedSquareChats(self, continuationToken=None, limit=50):
+        rq = GetJoinedSquareChatsRequest()
+        rq.continuationToken = continuationToken
+        rq.limit = limit
+        return self.square.getJoinedSquareChats(rq)
         
     @loggedIn
     def getJoinableSquareChats(self, squareMid, continuationToken=None, limit=50):
@@ -248,3 +373,35 @@ class LineSquare(object):
         rq = GetInvitationTicketUrlRequest()
         rq.mid = mid
         return self.square.getInvitationTicketUrl(rq)
+        
+    @loggedIn
+    def getSquareStatus(self, squareMid):
+        rq = GetSquareStatusRequest()
+        rq.squareMid = squareMid
+        return self.square.getSquareStatus(rq)
+        
+    @loggedIn
+    def getNoteStatus(self, squareMid):
+        rq = GetNoteStatusRequest()
+        rq.squareMid = squareMid
+        return self.square.getNoteStatus(rq)
+        
+    @loggedIn
+    def searchSquares(self, query, continuationToken=None, limit=50):
+        rq = SearchSquaresRequest()
+        rq.query = query
+        rq.continuationToken = continuationToken
+        rq.limit = limit
+        return self.square.searchSquares(rq)
+        
+    @loggedIn
+    def refreshSubscriptions(self, subscriptions=[]):
+        rq = RefreshSubscriptionsRequest()
+        rq.subscriptions = subscriptions
+        return self.square.refreshSubscriptions(rq)
+        
+    @loggedIn
+    def removeSubscriptions(self, unsubscriptions=[]):
+        rq = RemoveSubscriptionsRequest()
+        rq.unsubscriptions = unsubscriptions
+        return self.square.removeSubscriptions(rq)

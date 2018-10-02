@@ -7,10 +7,10 @@ def loggedIn(func):
         if args[0].isLogin:
             return func(*args, **kwargs)
         else:
-            args[0].callback.other("You want to call the function, you must login to LINE")
+            args[0].callback.other('You want to call the function, you must login to LINE')
     return checkLogin
     
-class LineObject(object):
+class Object(object):
 
     def __init__(self):
         if self.isLogin == True:
@@ -58,23 +58,70 @@ class LineObject(object):
             raise Exception('You should install FFmpeg and ffmpy from pypi')
 
     @loggedIn
+    def updateVideoAndPictureProfile(self, path_p, path, returnAs='bool'):
+        if returnAs not in ['bool']:
+            raise Exception('Invalid returnAs value')
+        files = {'file': open(path, 'rb')}
+        data = {'params': self.genOBSParams({'oid': self.profile.mid,'ver': '2.0','type': 'video','cat': 'vp.mp4'})}
+        r_vp = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/talk/vp/upload.nhn', data=data, files=files)
+        if r_vp.status_code != 201:
+            raise Exception('Update profile video picture failure.')
+        self.updateProfilePicture(path_p, 'vp')
+        if returnAs == 'bool':
+            return True
+
+    @loggedIn
     def updateProfileCover(self, path, returnAs='bool'):
-        if len(self.server.channelHeaders) < 1:
-            raise Exception('LineChannel instance is required for acquire this action.')
-        else:
-            if returnAs not in ['objId','bool']:
-                raise Exception('Invalid returnAs value')
-            objId = self.uploadObjHome(path, type='image', returnAs='objId')
-            home = self._channel.updateProfileCoverById(objId)
-            if returnAs == 'objId':
-                return objId
-            elif returnAs == 'bool':
-                return True
+        if returnAs not in ['objId','bool']:
+            raise Exception('Invalid returnAs value')
+        objId = self.uploadObjHome(path, type='image', returnAs='objId')
+        home = self.updateProfileCoverById(objId)
+        if returnAs == 'objId':
+            return objId
+        elif returnAs == 'bool':
+            return True
 
     """Object"""
 
     @loggedIn
-    def uploadObjTalk(self, path, type='image', returnAs='bool', objId=None, to=None):
+    def uploadObjSquare(self, squareChatMid, path, type='image', returnAs='bool'):
+        if returnAs not in ['bool']:
+            raise Exception('Invalid returnAs value')
+        if type not in ['image','gif','video','audio','file']:
+            raise Exception('Invalid type value')
+        data = open(path, 'rb').read()
+        params = {
+            'name': '%s' % str(time.time()*1000),
+            'oid': 'reqseq',
+            'reqseq': '%s' % str(self.revision),
+            'tomid': '%s' % str(squareChatMid),
+            'type': '%s' % str(type),
+            'ver': '1.0'
+        }
+        if type == 'image':
+            contentType = 'image/jpeg'
+        elif type == 'gif':
+            contentType = 'image/gif'
+        elif type == 'video':
+            params.update({'duration': '60000'})
+            contentType = 'video/mp4'
+        elif type == 'audio':
+            params.update({'duration': '0'})
+            contentType = 'audio/mp3'
+        headers = self.server.additionalHeaders(self.server.Headers, {
+            'Content-Type': contentType,
+            'Content-Length': str(len(data)),
+            'x-obs-params': self.genOBSParams(params,'b64'),
+            'X-Line-Access': self.squareObsToken
+        })
+        r = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/r/g2/m/reqseq', data=data, headers=headers)
+        if r.status_code != 201:
+            raise Exception('Upload %s failure.' % type)
+        if returnAs == 'bool':
+            return True
+
+    @loggedIn
+    def uploadObjTalk(self, path, type='image', returnAs='bool', objId=None, to=None, name=None):
         if returnAs not in ['objId','bool']:
             raise Exception('Invalid returnAs value')
         if type not in ['image','gif','video','audio','file']:
@@ -83,18 +130,19 @@ class LineObject(object):
         files = {'file': open(path, 'rb')}
         if type == 'image' or type == 'video' or type == 'audio' or type == 'file':
             e_p = self.server.LINE_OBS_DOMAIN + '/talk/m/upload.nhn'
-            data = {'params': self.genOBSParams({'oid': objId,'size': len(open(path, 'rb').read()),'type': type})}
+            data = {'params': self.genOBSParams({'oid': objId,'size': len(open(path, 'rb').read()),'type': type, 'name': name})}
         elif type == 'gif':
             e_p = self.server.LINE_OBS_DOMAIN + '/r/talk/m/reqseq'
             files = None
             data = open(path, 'rb').read()
             params = {
+                'name': '%s' % str(time.time()*1000),
                 'oid': 'reqseq',
                 'reqseq': '%s' % str(self.revision),
                 'tomid': '%s' % str(to),
-                'size': '%s' % str(len(data)),
-                'range': len(data),
-                'type': 'image'
+                'cat': 'original',
+                'type': 'image',
+                'ver': '1.0'
             }
             headers = self.server.additionalHeaders(self.server.Headers, {
                 'Content-Type': 'image/gif',
@@ -111,40 +159,38 @@ class LineObject(object):
 
     @loggedIn
     def uploadObjHome(self, path, type='image', returnAs='bool', objId=None):
-        if len(self.server.channelHeaders) < 1:
-            raise Exception('LineChannel instance is required for acquire this action.')
-        else:
-            if returnAs not in ['objId','bool']:
-                raise Exception('Invalid returnAs value')
-            if type not in ['image','video','audio']:
-                raise Exception('Invalid type value')
-            if type == 'image':
-                contentType = 'image/jpeg'
-            elif type == 'video':
-                contentType = 'video/mp4'
-            elif type == 'audio':
-                contentType = 'audio/mp3'
-            if not objId:
-                objId = int(time.time())
-            file = open(path, 'rb').read()
-            params = {
-                'userid': '%s' % self.profile.mid,
-                'oid': '%s' % str(objId),
-                'range': len(file),
-                'type': type
-            }
-            hr = self.server.additionalHeaders(self.server.channelHeaders, {
-                'Content-Type': contentType,
-                'Content-Length': str(len(file)),
-                'x-obs-params': self.genOBSParams(params,'b64')
-            })
-            r = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/myhome/c/upload.nhn', headers=hr, data=file)
-            if r.status_code != 201:
-                raise Exception('Upload object home failure.')
-            if returnAs == 'objId':
-                return objId
-            elif returnAs == 'bool':
-                return True
+        if returnAs not in ['objId','bool']:
+            raise Exception('Invalid returnAs value')
+        if type not in ['image','video','audio']:
+            raise Exception('Invalid type value')
+        if type == 'image':
+            contentType = 'image/jpeg'
+        elif type == 'video':
+            contentType = 'video/mp4'
+        elif type == 'audio':
+            contentType = 'audio/mp3'
+        if not objId:
+            objId = int(time.time())
+        file = open(path, 'rb').read()
+        params = {
+            'name': '%s' % str(time.time()*1000),
+            'userid': '%s' % self.profile.mid,
+            'oid': '%s' % str(objId),
+            'type': type,
+            'ver': '1.0'
+        }
+        hr = self.server.additionalHeaders(self.server.timelineHeaders, {
+            'Content-Type': contentType,
+            'Content-Length': str(len(file)),
+            'x-obs-params': self.genOBSParams(params,'b64')
+        })
+        r = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/myhome/c/upload.nhn', headers=hr, data=file)
+        if r.status_code != 201:
+            raise Exception('Upload object home failure.')
+        if returnAs == 'objId':
+            return objId
+        elif returnAs == 'bool':
+            return True
 
     @loggedIn
     def downloadObjectMsg(self, messageId, returnAs='path', saveAs=''):
