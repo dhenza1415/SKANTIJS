@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="Ex5LfGEB3Ztl9aBC6052.UgaA6PtgDwrhl20KYKxh8G.F101g7/mtfkZDKMx9TDQmNznFhBnmYZ9GY+tH37pyTY=")
+cl = LineClient(authToken="ExPTipKEUUMeeOSP4xR2.UgaA6PtgDwrhl20KYKxh8G.fpqexUAIs/zENqlG7Dl9zrVqgwxQzA877EnUoJXxJHY=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="Exd8vnzOUQRHc9yPgeF3.nsM86g66WhxwizzU8wsg8W.BQDXi4yHmNVlNc21u66KqC3SZKZYZXjz/Ip0NJSgXU0=")
+ki = LineClient(authToken="ExCx34kj6vHNYi8rj5J3.nsM86g66WhxwizzU8wsg8W.ghaMNWM4WqV8/H+c1lpV0EjU+dcI+zGPArgyapMHLUo=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex4hFDxzzoOdeUf47ztc.gYj8eX14kEAzvSbV9TTxla.3hwrqsg1p37Eglo/5QAknap2Rgb5UHjHBVINq8GRkco=")
+kk = LineClient(authToken="ExR3JZxUDcbAA2HkS2qc.gYj8eX14kEAzvSbV9TTxla.2DSpI3seQK4oadnnaXEaIMfNH+d5IDpLKqJTlV4lhj0=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExLvAsN1oSOvOsasSb0d.jB/U5D2EIoY5xGkQ7FOTtq.5H0pWTHAInk0SVLaR/kHMyy/wPmHv3aoan63q9ZfJdk=")
+kc = LineClient(authToken="Ex7IWD1aE7gWKgh3GuVd.jB/U5D2EIoY5xGkQ7FOTtq.Gk950yIXDzQurOqxEOEC/KCFGwmhQghbBdac8/BAm9k=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExKytqx7EsAajTlatLL7.BiGakU1CeeRwXmH42j19bW.nj1N5BL3l4NCKVJ/7NumisBwWq5PmbsYsOyQUs+N638=")
+kb = LineClient(authToken="Ex91O8MqAeEd3LNkNy07.BiGakU1CeeRwXmH42j19bW.6NikAlgOuLsPkCjdpcsqLQ7UMv/IPKU5HjlZJ1pdww0=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExNpssw5Ak87tuTcOOU1.Fu4JLf5bTsDevBLF+yRX8q.1yPYnKEA9SXd8D9KEqtJRdwFxHd4fryt5r0jR8S/gVM=")
+sw = LineClient(authToken="Exx0NPULm9e9Nv8ZVHc1.Fu4JLf5bTsDevBLF+yRX8q.uVbo6Lfu9IX23pGymxxMnuhbG/vnI5qmH7w1nC4+tUs=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -864,14 +864,14 @@ def bot(op):
                 image = 'http://dl.profile.line.naver.jp'+contact
                 welcomeMembers(op.param1, [op.param2])
                 cl.sendImageWithURL(op.param1, image)
-                
+
         if op.type == 15:
             if op.param1 in welcome:
                 if op.param2 in Bots:
                     pass
                 ginfo = cl.getGroup(op.param1)
                 leaveMembers(op.param1, [op.param2])
-               
+
         if op.type == 17:
             if op.param1 in protectjoin:
                 if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -1163,12 +1163,10 @@ def bot(op):
                 if op.param3 in Zmid:
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
                         cl.kickoutFromGroup(op.param1,[op.param2])
-                        cl.findAndAddContactsByMid(op.param3)
                         cl.inviteIntoGroup(op.param1,[Zmid])
                         cl.sendMessage(op.param1,"🇦🇱ΔΠTI JS SUCSΣSS!!! JΩIΠΣD🇦🇱")
                     else:
                         cl.kickoutFromGroup(op.param1,[op.param2])
-                        cl.findAndAddContactsByMid(op.param3)
                         cl.inviteIntoGroup(op.param1,[Zmid])
                         cl.sendMessage(op.param1,"🇦🇱ΔΠTI JS SUCSΣS!!! JΩIΠΣD🇦🇱")
                 if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -1176,7 +1174,6 @@ def bot(op):
                         if op.param1 in protectantijs:
                             wait["blacklist"][op.param2] = True
                             cl.kickoutFromGroup(op.param1,[op.param2])
-                            cl.findAndAddContactsByMid(op.param3)
                             cl.inviteIntoGroup(op.param1,[op.param3])
                             cl.sendMessage(op.param1,"🇦🇱ΔΠTI JS SUCSΣSS!!! JΩIΠΣD🇦🇱")
                 else:
@@ -1241,7 +1238,7 @@ def bot(op):
                         cl.acceptGroupInvitation(op.param1)
                     except:
                         try:
-                            kk.kickoutFromGroup(op.param1,[op.param2])                            
+                            kk.kickoutFromGroup(op.param1,[op.param2])
                             kk.inviteIntoGroup(op.param1,[op.param3])
                             cl.acceptGroupInvitation(op.param1)
                         except:
@@ -1540,19 +1537,7 @@ def bot(op):
                             pass
 
                 return
-#-------------------------------------------------------------------------------    
-        if op.type == 55:
-            try:
-                if op.param1 in Setmain["SKreadPoint"]:
-                   if op.param2 in Setmain["SKreadMember"][op.param1]:
-                       pass
-                   else:
-                       Setmain["SKreadMember"][op.param1][op.param2] = True
-                else:
-                   pass
-            except:
-                pass
-
+#-------------------------------------------------------------------------------
         if op.type == 55:
             if op.param2 in wait["blacklist"]:
                 if op.param2 in Bots:
@@ -1583,13 +1568,13 @@ def bot(op):
                                         pass
                 return
 
-            if cctv['cyduk'][op.param1]==False:
-                if op.param1 in cctv['point']:
+            if cctv["cyduk"][op.param1]==False:
+                if op.param1 in cctv["point"]:
                     Name = cl.getContact(op.param2).displayName
-                    if Name in cctv['sidermem'][op.param1]:
+                    if Name in cctv["sidermem"][op.param1]:
                         pass
                     else:
-                        cctv['sidermem'][op.param1] += "\n~ " + Name
+                        cctv["sidermem"][op.param1] += "\n~ " + Name
                         siderMembers(op.param1, [op.param2])
 
         if op.type == 26:
