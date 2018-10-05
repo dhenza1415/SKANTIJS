@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="Ex5LfGEB3Ztl9aBC6052.UgaA6PtgDwrhl20KYKxh8G.F101g7/mtfkZDKMx9TDQmNznFhBnmYZ9GY+tH37pyTY=")
+cl = LineClient(authToken="ExgID4bdTnd6sZFxSVK2.UgaA6PtgDwrhl20KYKxh8G.HrxSz4Z5fD5q9aezbnBANvfoHIox3yhrhzbQ2yWp2DI=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="Exd8vnzOUQRHc9yPgeF3.nsM86g66WhxwizzU8wsg8W.BQDXi4yHmNVlNc21u66KqC3SZKZYZXjz/Ip0NJSgXU0=")
+ki = LineClient(authToken="Ex4zRPyJrLTBBhe2zZU3.nsM86g66WhxwizzU8wsg8W.iVacDf/AMSk1ckacVoCTotiYhJ1/7qJVcE7NNo8T7+I=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex4hFDxzzoOdeUf47ztc.gYj8eX14kEAzvSbV9TTxla.3hwrqsg1p37Eglo/5QAknap2Rgb5UHjHBVINq8GRkco=")
+kk = LineClient(authToken="Ex8KjXfSeBmm95XJxR9c.gYj8eX14kEAzvSbV9TTxla.5wHYirricUQagrfLOYBwg9zo4wRkqyUQ9Hit2gSmEM8=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExLvAsN1oSOvOsasSb0d.jB/U5D2EIoY5xGkQ7FOTtq.5H0pWTHAInk0SVLaR/kHMyy/wPmHv3aoan63q9ZfJdk=")
+kc = LineClient(authToken="ExOikSzcEgZWkYL8fhSd.jB/U5D2EIoY5xGkQ7FOTtq.uL8C8Piq9p8b3A0NYRkUweUT5SdIct962EuGH/hgwF0=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExKytqx7EsAajTlatLL7.BiGakU1CeeRwXmH42j19bW.nj1N5BL3l4NCKVJ/7NumisBwWq5PmbsYsOyQUs+N638=")
+kb = LineClient(authToken="ExyxengAkXSMBBtXtA37.BiGakU1CeeRwXmH42j19bW.mqKyEkDzTgAGfUpPIa1kPKssqiBcymwPFD1PxeNycAc=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="ExNpssw5Ak87tuTcOOU1.Fu4JLf5bTsDevBLF+yRX8q.1yPYnKEA9SXd8D9KEqtJRdwFxHd4fryt5r0jR8S/gVM=")
+sw = LineClient(authToken="Exvexrb9K3ssFukVFmv9.k+n9YlUAYfbHu5wP4vHq/q.y5qdA+mMkPmXwF7h8WBb2XznM6oNXdSoYss2Sy53gJU=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -697,12 +697,12 @@ def bot(op):
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
                         cl.acceptGroupInvitation(op.param1)
                         ginfo = cl.getGroup(op.param1)
-                        cl.sendMessage(op.param1,"Selamat Tinggal\n Group " +str(ginfo.name))
+                        cl.sendMessage(op.param1,"Pulang dulu ya\n Group " +str(ginfo.name))
                         cl.leaveGroup(op.param1)
                     else:
                         cl.acceptGroupInvitation(op.param1)
                         ginfo = cl.getGroup(op.param1)
-                        cl.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
+                        cl.sendMessage(op.param1,"wew " + str(ginfo.name))
 
         if op.type == 13:
             if mid in op.param3:
@@ -710,11 +710,10 @@ def bot(op):
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
                         cl.acceptGroupInvitation(op.param1)
                         ginfo = cl.getGroup(op.param1)
-                        cl.sendMessage(op.param1,"KυΥΥ " +str(ginfo.name))
+                        cl.sendMessage(op.param1,"Thaks for invit group " +str(ginfo.name))
                     else:
                         cl.acceptGroupInvitation(op.param1)
                         ginfo = cl.getGroup(op.param1)
-                        cl.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
             if Amid in op.param3:
                 if wait["autoJoin"] == True:
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -725,7 +724,6 @@ def bot(op):
                     else:
                         ki.acceptGroupInvitation(op.param1)
                         ginfo = ki.getGroup(op.param1)
-                        ki.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
             if Bmid in op.param3:
                 if wait["autoJoin"] == True:
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -736,7 +734,6 @@ def bot(op):
                     else:
                         kk.acceptGroupInvitation(op.param1)
                         ginfo = kk.getGroup(op.param1)
-                        kk.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
             if Cmid in op.param3:
                 if wait["autoJoin"] == True:
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -747,7 +744,6 @@ def bot(op):
                     else:
                         kc.acceptGroupInvitation(op.param1)
                         ginfo = kc.getGroup(op.param1)
-                        kc.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
             if Dmid in op.param3:
                 if wait["autoJoin"] == True:
                     if op.param2 not in Bots and op.param2 not in owner and op.param2 not in admin and op.param2 not in staff:
@@ -758,7 +754,6 @@ def bot(op):
                     else:
                         kb.acceptGroupInvitation(op.param1)
                         ginfo = kc.getGroup(op.param1)
-                        kb.sendMessage(op.param1,"KυΥΥ " + str(ginfo.name))
 
         if op.type == 13:
             if op.param1 in protectinvite:
@@ -900,71 +895,6 @@ def bot(op):
                     pass
                  else:
                    cl.sendText(op.param1, wait["message"])
-
-        if op.type == 5:
-            print ("[ 5 ] NOTIFIED AUTO BLOCK CONTACT")
-            if wait["autoBlock"] == True:
-                cl.blockContact(op.param1)
-
-        if op.type == 65:
-            if wait["unsend"] == True:
-                try:
-                    at = op.param1
-                    msg_id = op.param2
-                    if msg_id in msg_dict:
-                        if msg_dict[msg_id]["from"]:
-                           if msg_dict[msg_id]["text"] == 'Gambarnya dibawah':
-                                ginfo = cl.getGroup(at)
-                                dhenza = cl.getContact(msg_dict[msg_id]["from"])
-                                zx = ""
-                                zxc = ""
-                                zx2 = []
-                                xpesan =  "「 Gambar Dihapus 」\n• Pengirim : "
-                                ret_ = "• Nama Grup : {}".format(str(ginfo.name))
-                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict[msg_id]["createdTime"])))
-                                ry = str(dhenza.displayName)
-                                pesan = ''
-                                pesan2 = pesan+"@x \n"
-                                xlen = str(len(zxc)+len(xpesan))
-                                xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
-                                zx = {'S':xlen, 'E':xlen2, 'M':dhenza.mid}
-                                zx2.append(zx)
-                                zxc += pesan2
-                                text = xpesan + zxc + ret_ + ""
-                                cl.sendMessage(at, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
-                                cl.sendImage(at, msg_dict[msg_id]["data"])
-                           else:
-                                ginfo = cl.getGroup(at)
-                                dhenza = cl.getContact(msg_dict[msg_id]["from"])
-                                ret_ =  "「 Pesan Dihapus 」\n"
-                                ret_ += "• Pengirim : {}".format(str(dhenza.displayName))
-                                ret_ += "\n• Nama Grup : {}".format(str(ginfo.name))
-                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict[msg_id]["createdTime"])))
-                                ret_ += "\n• Pesannya : {}".format(str(msg_dict[msg_id]["text"]))
-                                cl.sendMessage(at, str(ret_))
-                        del msg_dict[msg_id]
-                except Exception as e:
-                    print(e)
-
-        if op.type == 65:
-            if wait["unsend"] == True:
-                try:
-                    at = op.param1
-                    msg_id = op.param2
-                    if msg_id in msg_dict1:
-                        if msg_dict1[msg_id]["from"]:
-                                ginfo = cl.getGroup(at)
-                                dhenza = cl.getContact(msg_dict1[msg_id]["from"])
-                                ret_ =  "「 Sticker Dihapus 」\n"
-                                ret_ += "• Pengirim : {}".format(str(dhenza.displayName))
-                                ret_ += "\n• Nama Grup : {}".format(str(ginfo.name))
-                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict1[msg_id]["createdTime"])))
-                                ret_ += "{}".format(str(msg_dict1[msg_id]["text"]))
-                                cl.sendMessage(at, str(ret_))
-                                cl.sendImage(at, msg_dict1[msg_id]["data"])
-                        del msg_dict1[msg_id]
-                except Exception as e:
-                    print(e)
 
         if op.type == 19:
             if op.param2 in wait["blacklist"]:
@@ -1996,7 +1926,7 @@ def bot(op):
                         f = codecs.open("video.json","w","utf-8")
                         json.dump(videos, f, sort_keys=True, indent=4, ensure_ascii=False)
                         cl.sendMessage(msg.to, "Berhasil menambahkan video {}".format(str(wait["Addvideo"]["name"])))
-                        wait["Addvideo"]["status"] = False                
+                        wait["Addvideo"]["status"] = False
                         wait["Addvideo"]["name"] = ""
 
                if msg.contentType == 7:
@@ -2017,7 +1947,7 @@ def bot(op):
                         f = codecs.open("audio.json","w","utf-8")
                         json.dump(audios, f, sort_keys=True, indent=4, ensure_ascii=False)
                         cl.sendMessage(msg.to, "Berhasil menambahkan mp3 {}".format(str(wait["Addaudio"]["name"])))
-                        wait["Addaudio"]["status"] = False                
+                        wait["Addaudio"]["status"] = False
                         wait["Addaudio"]["name"] = ""
 
                if msg.toType == 2:
@@ -2069,9 +1999,9 @@ def bot(op):
 
                if msg.contentType == 2:
                    if msg._from in admin:
-                       if mid in Setmain["SKvideo"]:
+                       if mid in Setmain["Videos"]:
                             path = cl.downloadObjectMsg(msg_id)
-                            del Setmain["SKvideo"][mid]
+                            del Setmain["Videos"][mid]
                             cl.updateProfileVideoPicture(path)
                             cl.sendMessage(msg.to,"Foto berhasil dirubah jadi video")
 
@@ -2947,6 +2877,15 @@ def bot(op):
                               cl.sendContact(to, Dmid)
                               cl.sendContact(to, Zmid)
                               cl.sendText(msg.to,"AཽLཽLཽ BཽOཽTཽSཽ RཽEཽAཽDཽYཽ")
+
+                        elif cmd  == "midbot":
+                          if msg._from in admin:
+                              cl.sendText(msg.to,mid)
+                              ki.sendText(msg.to,Amid)
+                              kk.sendText(msg.to,Bmid)
+                              kc.sendText(msg.to,Cmid)
+                              kb.sendText(msg.to,Dmid)
+                              cl.sendText(msg.to,Zmid)
 
                         elif cmd == "sk stay":
                           if wait["selfbot"] == True:
@@ -4363,6 +4302,26 @@ def bot(op):
                                 wait["autoJoinTicket"] = False
                                 cl.sendMessage(msg.to,"Notag dinonaktifkan")
 
+                        elif cmd == "unsend on":
+                            if msg._from in admin:
+                                wait["unsend"] = True
+                                cl.sendMessage(msg.to, "unsend aktif bos urungkan siap cyduk")
+
+                        elif cmd == "unsend off":
+                            if msg._from in admin:
+                                wait["unsend"] = False
+                                cl.sendMessage(msg.to, "unsend pesan sudah tidak aktif")
+                        elif cmd == "cek":
+                            if msg._from in admin or msg._from in owner:
+                               try:cl.inviteIntoGroup(to, ["ub8601aea94c67564472f6d24ca45c7f2"]);has = "OK"
+                               except:has = "NOT"
+                               try:cl.kickoutFromGroup(to, ["ub8601aea94c67564472f6d24ca45c7f2"]);has1 = "OK"
+                               except:has1 = "NOT"
+                               if has == "OK":sil = "Normal"
+                               else:sil = "Limit"
+                               if has1 == "OK":sil1 = "Normal"
+                               else:sil1 = "Limit"
+                               cl.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
 #===========COMMAND BLACKLIST============#
                         elif ("Talkban " in msg.text):
                           if wait["selfbot"] == True:
