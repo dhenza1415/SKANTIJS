@@ -11,17 +11,17 @@ from bs4 import BeautifulSoup
 
 #===============================================================================================
 
-cl = LineClient(authToken="ExgID4bdTnd6sZFxSVK2.UgaA6PtgDwrhl20KYKxh8G.HrxSz4Z5fD5q9aezbnBANvfoHIox3yhrhzbQ2yWp2DI=")
+cl = LineClient(authToken="Ex0LQ3xjybG5H5UZtud2.UgaA6PtgDwrhl20KYKxh8G.MsI+BeMKqrTWwWMhkSMAohSMJopEBXDfaHCudQpvmlU=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LineClient(authToken="Ex4zRPyJrLTBBhe2zZU3.nsM86g66WhxwizzU8wsg8W.iVacDf/AMSk1ckacVoCTotiYhJ1/7qJVcE7NNo8T7+I=")
+ki = LineClient(authToken="ExvmWSLbl8YLyF3mClW3.nsM86g66WhxwizzU8wsg8W.E4cTsdp/TwgIXGcV1PXnw9DxoOHffT7wUFISjb1xOtI=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LineClient(authToken="Ex8KjXfSeBmm95XJxR9c.gYj8eX14kEAzvSbV9TTxla.5wHYirricUQagrfLOYBwg9zo4wRkqyUQ9Hit2gSmEM8=")
+kk = LineClient(authToken="ExoATjEVVe3bWE39jlBc.gYj8eX14kEAzvSbV9TTxla.tYdldRt2YLTwwBoFs6015trne/ZmmQz63x1tSj77Kvo=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LineClient(authToken="ExOikSzcEgZWkYL8fhSd.jB/U5D2EIoY5xGkQ7FOTtq.uL8C8Piq9p8b3A0NYRkUweUT5SdIct962EuGH/hgwF0=")
+kc = LineClient(authToken="Ex1m7M5UOnlhpnkmTjFd.jB/U5D2EIoY5xGkQ7FOTtq.EFQTisX1v8O/MeOShATBn786ednHNcf28FH6jzbVz+0=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LineClient(authToken="ExyxengAkXSMBBtXtA37.BiGakU1CeeRwXmH42j19bW.mqKyEkDzTgAGfUpPIa1kPKssqiBcymwPFD1PxeNycAc=")
+kb = LineClient(authToken="Exivsryhx8WSZLMkWBI7.BiGakU1CeeRwXmH42j19bW.aa+BcFuBBucBu6QatuGkA0pxhREducRwpswngUSLPG0=")
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LineClient(authToken="Exvexrb9K3ssFukVFmv9.k+n9YlUAYfbHu5wP4vHq/q.y5qdA+mMkPmXwF7h8WBb2XznM6oNXdSoYss2Sy53gJU=")
+sw = LineClient(authToken="Ex1HoTZLn7tuSJz5ZfY1.Fu4JLf5bTsDevBLF+yRX8q.7SER8kF2h9h8RnuNEp5M4KGLCSf7DOsoCGOdZyoGrMw=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 #===============================================================================================
@@ -69,6 +69,10 @@ settings = {
     "groupPicture":False,
     "changePicture":False,
     "autoJoinTicket":True,
+    "userMention":{},
+    "timeRestart": {},
+    "server": {},
+    "simiSimi":{},
     "userAgent": [
         "Mozilla/5.0 (X11; U; Linux i586; de; rv:5.0) Gecko/20100101 Firefox/5.0",
         "Mozilla/5.0 (X11; U; Linux amd64; rv:5.0) Gecko/20100101 Firefox/5.0 (Debian)",
@@ -895,7 +899,65 @@ def bot(op):
                     pass
                  else:
                    cl.sendText(op.param1, wait["message"])
+        if op.type == 65:
+            if wait["unsend"] == True:
+                try:
+                    at = op.param1
+                    msg_id = op.param2
+                    if msg_id in msg_dict:
+                        if msg_dict[msg_id]["from"]:
+                           if msg_dict[msg_id]["text"] == 'Gambarnya dibawah':
+                                ginfo = cl.getGroup(at)
+                                Galank = cl.getContact(msg_dict[msg_id]["from"])
+                                zx = ""
+                                zxc = ""
+                                zx2 = []
+                                xpesan =  "「 Gambar Dihapus 」\n• Pengirim : "
+                                ret_ = "• Nama Grup : {}".format(str(ginfo.name))
+                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict[msg_id]["createdTime"])))
+                                ry = str(Galank.displayName)
+                                pesan = ''
+                                pesan2 = pesan+"@x \n"
+                                xlen = str(len(zxc)+len(xpesan))
+                                xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
+                                zx = {'S':xlen, 'E':xlen2, 'M':Galank.mid}
+                                zx2.append(zx)
+                                zxc += pesan2
+                                text = xpesan + zxc + ret_ + ""
+                                cl.sendMessage(at, text, contentMetadata={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}, contentType=0)
+                                cl.sendImage(at, msg_dict[msg_id]["data"])
+                           else:
+                                ginfo = cl.getGroup(at)
+                                Galank = cl.getContact(msg_dict[msg_id]["from"])
+                                ret_ =  "「 Pesan Dihapus 」\n"
+                                ret_ += "• Pengirim : {}".format(str(Galank.displayName))
+                                ret_ += "\n• Nama Grup : {}".format(str(ginfo.name))
+                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict[msg_id]["createdTime"])))
+                                ret_ += "\n• Pesannya : {}".format(str(msg_dict[msg_id]["text"]))
+                                cl.sendMessage(at, str(ret_))
+                        del msg_dict[msg_id]
+                except Exception as e:
+                    print(e)
 
+        if op.type == 65:
+            if wait["unsend"] == True:
+                try:
+                    at = op.param1
+                    msg_id = op.param2
+                    if msg_id in msg_dict1:
+                        if msg_dict1[msg_id]["from"]:
+                                ginfo = cl.getGroup(at)
+                                Galank = cl.getContact(msg_dict1[msg_id]["from"])
+                                ret_ =  "「 Sticker Dihapus 」\n"
+                                ret_ += "• Pengirim : {}".format(str(Galank.displayName))
+                                ret_ += "\n• Nama Grup : {}".format(str(ginfo.name))
+                                ret_ += "\n• Waktu Ngirim : {}".format(dt_to_str(cTime_to_datetime(msg_dict1[msg_id]["createdTime"])))
+                                ret_ += "{}".format(str(msg_dict1[msg_id]["text"]))
+                                cl.sendMessage(at, str(ret_))
+                                cl.sendImage(at, msg_dict1[msg_id]["data"])
+                        del msg_dict1[msg_id]
+                except Exception as e:
+                    print(e)
         if op.type == 19:
             if op.param2 in wait["blacklist"]:
                 if op.param2 in Bots:
@@ -4097,17 +4159,53 @@ def bot(op):
                             if msg._from in admin:
                                 wait["unsend"] = False
                                 cl.sendMessage(msg.to, "unsend pesan sudah tidak aktif")
-                        elif cmd == "cek":
+                        elif cmd == "stamina":
                             if msg._from in admin or msg._from in owner:
                                try:cl.inviteIntoGroup(to, ["ub8601aea94c67564472f6d24ca45c7f2"]);has = "OK"
                                except:has = "NOT"
                                try:cl.kickoutFromGroup(to, ["ub8601aea94c67564472f6d24ca45c7f2"]);has1 = "OK"
                                except:has1 = "NOT"
-                               if has == "OK":sil = "Normal"
+                               if has == "OK":sil = "Sehat"
                                else:sil = "Limit"
-                               if has1 == "OK":sil1 = "Normal"
+                               if has1 == "OK":sil1 = "Sehat"
                                else:sil1 = "Limit"
                                cl.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
+                               try:ki.inviteIntoGroup(to, ["u3529bce86ebac075d621966ef16486f3"]);has = "OK"
+                               except:has = "NOT"
+                               try:ki.kickoutFromGroup(to, ["u3529bce86ebac075d621966ef16486f32"]);has1 = "OK"
+                               except:has1 = "NOT"
+                               if has == "OK":sil = "Sehat"
+                               else:sil = "Limit"
+                               if has1 == "OK":sil1 = "Sehat"
+                               else:sil1 = "Limit"
+                               ki.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
+                               try:kk.inviteIntoGroup(to, ["u1b227c131d7829e69956c06ff6db572c"]);has = "OK"
+                               except:has = "NOT"
+                               try:kk.kickoutFromGroup(to, ["u1b227c131d7829e69956c06ff6db572c"]);has1 = "OK"
+                               except:has1 = "NOT"
+                               if has == "OK":sil = "Sehat"
+                               else:sil = "Limit"
+                               if has1 == "OK":sil1 = "Sehat"
+                               else:sil1 = "Limit"
+                               kk.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
+                               try:kc.inviteIntoGroup(to, ["u25bfaee5dd9e88ecb95e02aaedfa2d4d"]);has = "OK"
+                               except:has = "NOT"
+                               try:kc.kickoutFromGroup(to, ["u25bfaee5dd9e88ecb95e02aaedfa2d4d"]);has1 = "OK"
+                               except:has1 = "NOT"
+                               if has == "OK":sil = "Sehat"
+                               else:sil = "Limit"
+                               if has1 == "OK":sil1 = "Sehat"
+                               else:sil1 = "Limit"
+                               kc.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
+                               try:kb.inviteIntoGroup(to, ["u6c88002aed5c104ad6c4c878d89d7d07"]);has = "OK"
+                               except:has = "NOT"
+                               try:kb.kickoutFromGroup(to, ["u6c88002aed5c104ad6c4c878d89d7d07"]);has1 = "OK"
+                               except:has1 = "NOT"
+                               if has == "OK":sil = "Sehat"
+                               else:sil = "Limit"
+                               if has1 == "OK":sil1 = "Sehat"
+                               else:sil1 = "Limit"
+                               kb.sendMessage(to, "Result:\n\nKick : {} \nInvite : {}".format(sil1,sil))
 #===========COMMAND BLACKLIST============#
                         elif ("Talkban " in msg.text):
                           if wait["selfbot"] == True:
