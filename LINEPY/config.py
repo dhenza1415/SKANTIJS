@@ -17,6 +17,7 @@ class Config(object):
     LINE_CERTIFICATE_PATH       = '/Q'
     LINE_CHAN_QUERY_PATH        = '/CH4'
     LINE_SQUARE_QUERY_PATH      = '/SQS1'
+    LINE_SHOP_QUERY_PATH        = '/SHOP4'
 
     CHANNEL_ID = {
         'LINE_TIMELINE': '1341209850',
@@ -24,17 +25,35 @@ class Config(object):
         'LINE_TODAY': '1518712866',
         'LINE_STORE': '1376922440',
         'LINE_MUSIC': '1381425814',
-        'LINE_BUSINESS': '1459630796'
+        'LINE_SERVICES': '1459630796'
     }
 
-    APP_TYPE    = ApplicationType._VALUES_TO_NAMES[368]
-    APP_VER     = '2.1.5'
+    APP_VERSION = {
+        'ANDROID': '8.14.2',
+        'IOS': '8.14.2',
+        'ANDROIDLITE': '2.1.0',
+        'BIZANDROID': '1.7.2',
+        'BIZIOS': '1.7.5',
+        'BIZWEB': '1.0.22',
+        'DESKTOPWIN': '5.9.0',
+        'DESKTOPMAC': '5.9.0',
+        'IOSIPAD': '8.14.2',
+        'CHROMEOS': '2.1.5',
+        'WIN10': '5.5.5',
+        'DEFAULT': '8.11.0'
+    }
+
+    APP_TYPE    = 'IOSIPAD'
+    APP_VER     = APP_VERSION[APP_TYPE] if APP_TYPE in APP_VERSION else APP_VERSION['DEFAULT']
     CARRIER     = '51089, 1-0'
-    SYSTEM_NAME = 'SILENTKILLER'
+    SYSTEM_NAME = 'SK-PC'
     SYSTEM_VER  = '11.2.5'
     IP_ADDR     = '8.8.8.8'
     EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
-    def __init__(self):
+    def __init__(self, appType=None):
+        if appType:
+            self.APP_TYPE = appType
+            self.APP_VER = self.APP_VERSION[self.APP_TYPE] if self.APP_TYPE in self.APP_VERSION else self.APP_VERSION['DEFAULT']
         self.APP_NAME = '%s\t%s\t%s\t%s' % (self.APP_TYPE, self.APP_VER, self.SYSTEM_NAME, self.SYSTEM_VER)
         self.USER_AGENT = 'Line/%s' % self.APP_VER
