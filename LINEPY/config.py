@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from ..akad.ttypes import ApplicationType
+from akad.ttypes import ApplicationType
 import re
 
 class Config(object):
@@ -17,7 +17,6 @@ class Config(object):
     LINE_CERTIFICATE_PATH       = '/Q'
     LINE_CHAN_QUERY_PATH        = '/CH4'
     LINE_SQUARE_QUERY_PATH      = '/SQS1'
-    LINE_SHOP_QUERY_PATH        = '/SHOP4'
 
     CHANNEL_ID = {
         'LINE_TIMELINE': '1341209850',
@@ -25,14 +24,13 @@ class Config(object):
         'LINE_TODAY': '1518712866',
         'LINE_STORE': '1376922440',
         'LINE_MUSIC': '1381425814',
-        'LINE_SERVICES': '1459630796',
-        'JUNGEL_PANG':  '1526709289'
+        'LINE_BUSINESS': '1459630796'
     }
 
-    APP_TYPE    = ApplicationType._VALUES_TO_NAMES[304]
-    APP_VER     = '8.11.0'
+    APP_TYPE    = ApplicationType._VALUES_TO_NAMES[368]
+    APP_VER     = '2.1.5'
     CARRIER     = '51089, 1-0'
-    SYSTEM_NAME = 'HelloWorld'
+    SYSTEM_NAME = 'SILENTKILLER'
     SYSTEM_VER  = '11.2.5'
     IP_ADDR     = '8.8.8.8'
     EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
