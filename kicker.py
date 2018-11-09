@@ -1,39 +1,37 @@
 # -*- coding: utf-8 -*-
-from LineAPI.linepy import *
-from LineAPI.akad.ttypes import Message
-from LineAPI.akad.ttypes import ContentType as Type
-from LineAPI.akad.ttypes import ChatRoomAnnouncementContents
-from LineAPI.akad.ttypes import ChatRoomAnnouncement
-from datetime import datetime, timedelta
+import LINEPY
+from LINEPY import *
+from akad.ttypes import *
+from multiprocessing import Pool, Process
 from time import sleep
+import pytz, datetime, pafy, time, timeit, random, sys, ast, re, os, json, subprocess, threading, string, codecs, requests, tweepy, ctypes, urllib, wikipedia
+from datetime import timedelta, date
+from datetime import datetime
 from bs4 import BeautifulSoup
-from humanfriendly import format_timespan, format_size, format_number, format_length
-import time, random, multiprocessing, sys, json, codecs, threading, glob, re, string, os, requests, subprocess, six, ast, pytz, urllib, urllib3, urllib.parse, html5lib, wikipedia, atexit, timeit, pafy, youtube_dl, traceback
-from gtts import gTTS
-from googletrans import Translator
+from urllib.parse import urlencode
+import subprocess as cmd
 #===============================================================================================
-cl = LINE("")
+cl = LineClient(authToken="Ey7tFiLnlFpwqRPFOaU7.ryGTdQ0xa4vDVgdudJE/XW.XI294Kk99lkvptR4Yj4VwojSWR/5Wmv09AmXcCcv3Ek=")
 cl.log("Auth Token : " + str(cl.authToken))
-ki = LINE("")
+ki = LineClient(authToken="Eyp367JgZutXyD360s29.k+n9YlUAYfbHu5wP4vHq/q.tNEpnYBhgrK87na8W7VrqCoT64AwT3+7R+gmS/VZPv8=")
 ki.log("Auth Token : " + str(ki.authToken))
-kk = LINE("")
+kk = LineClient(authToken="EyTIk2WKXmKDOCxwkHuc.cL7O15BJz3PwUe+Wo2vK7a.GxMqFBJ15+BRvFqSwzeiRoMkc8+fXErghNkrLwrPm4M=")
 kk.log("Auth Token : " + str(kk.authToken))
-kc = LINE("")
+kc = LineClient(authToken="EyCZb6HjxFQuWCQQO3S7.kBfVdPNp3W59E4fW983bPW.QMBl4yIwbXwJg0So5uctS5uPhD/HXIu94kgQwK5sx6Y=")
 kc.log("Auth Token : " + str(kc.authToken))
-kb = LINE("")
+kb = LineClient(authToken="Eyan9mFtZ2OSGDmKIRde.362avKDVpNAqnxvrpmIUVG.Qf4BuGJoDFXA+sxAbXKGroumBTr8zU4vrziWPiLiXGs="))
 kb.log("Auth Token : " + str(kb.authToken))
-sw = LINE("")
+sw = LineClient(authToken="Ey6WcRNQ0Ewm1lr6J6ga.6L+GtJLXpMDOZ1AhVfRhQG.AZTi/kSyPsMffaL/b9+ZjTfsdhcakk1ibp4caxdGSyg=")
 sw.log("Auth Token : " + str(sw.authToken))
 
 print ("Creator dhenz415 ")
-
-oepoll = OEPoll(cl)
+poll = LinePoll(cl)
 call = cl
+creator = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+owner = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+admin = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
+staff = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0"]
 
-creator = ["ub1c5a71f27b863896e9d44bea857d35b","ufdc20b3a00b5e8f31e4f91017eb361b0","u4e31d7e10bff93329195d410e35ad641"]
-owner = ["udfd795f96ca84d9f6422dd33a1006cc3","ub1c5a71f27b863896e9d44bea857d35b"]
-admin = ["udfd795f96ca84d9f6422dd33a1006cc3","ub1c5a71f27b863896e9d44bea857d35b"]
-staff = ["udfd795f96ca84d9f6422dd33a1006cc3","ub1c5a71f27b863896e9d44bea857d35b"]
 mid = cl.getProfile().mid
 Amid = ki.getProfile().mid
 Bmid = kk.getProfile().mid
@@ -4296,21 +4294,21 @@ def bot(op):
     except Exception as error:
         print (error)
 
-
 while True:
     try:
-        ops = oepoll.singleTrace(count=50)
+        ops = poll.singleTrace(count=50)
         if ops is not None:
             for op in ops:
                # bot(op)
                 # Don't remove this line, if you wan't get error soon!
-                oepoll.setRevision(op.revision)
+                poll.setRevision(op.revision)
                 thread1 = threading.Thread(target=bot, args=(op,))#self.OpInterrupt[op.type], args=(op,)
                 #thread1.daemon = True
                 thread1.start()
                 thread1.join()
-    except Exception as error:
-        logError(error)
+    except Exception as e:
+        pass
+
         
 def atend():
     print("Saving")
